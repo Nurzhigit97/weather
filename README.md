@@ -5,12 +5,6 @@
     <img  width="300" src="./assets/readmeImages/weather2.jpg"/>
     <span>< ></span>
     <img width="300" src="./assets/readmeImages/weather1.jpg"/>
-    <span>< ></span>
-    <img width="300" src="./assets/readmeImages/weather.jpg"/>
-    <span>< ></span>
-    <img width="300" src="./assets/readmeImages/weatherLight.jpg"/>
-    <span>< ></span>
-    <img width="300" src="./assets/readmeImages/weatherNight.jpg"/>
     
   </div>
 </div>
