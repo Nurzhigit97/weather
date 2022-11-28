@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
@@ -53,20 +54,22 @@ class Header extends StatelessWidget {
                 ),
                 //!
 
-                Text(
+                AutoSizeText(
                   description,
-                  style: const TextStyle(
-                    fontSize: 17,
-                  ),
+                  style: TextStyle(fontSize: 17),
+                  minFontSize: 17,
                 ),
+
                 const SizedBox(
                   height: 10,
                 ),
-                Text(
+
+                AutoSizeText(
                   'Max.: ${forecastday?['maxtemp_c']}° Min.: ${forecastday?['mintemp_c']}°',
-                  style: const TextStyle(
-                    fontSize: 15,
-                  ),
+                  style: TextStyle(fontSize: 17),
+                  minFontSize: 17,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
