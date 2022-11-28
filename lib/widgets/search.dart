@@ -26,6 +26,20 @@ class _SearchState extends State<Search> {
     }
   }
 
+  searchCity(String value) {
+    return (setState(() {
+      _isLoadinf = true;
+      city = value;
+      Future.delayed(
+        const Duration(seconds: 1),
+        () {
+          loadingFunc();
+          _textfieldController.clear();
+        },
+      );
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,16 +52,7 @@ class _SearchState extends State<Search> {
             : SizedBox(
                 child: TextField(
                   controller: _textfieldController,
-                  onSubmitted: (value) {
-                    setState(() {
-                      _isLoadinf = true;
-                      city = value;
-                      Future.delayed(const Duration(seconds: 1), () {
-                        loadingFunc();
-                        _textfieldController.clear();
-                      });
-                    });
-                  },
+                  onSubmitted: (value) => searchCity(value),
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     suffixIcon: IconButton(

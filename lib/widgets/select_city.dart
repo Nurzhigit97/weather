@@ -17,13 +17,16 @@ class _SelectCityState extends State<SelectCity> {
   Widget build(BuildContext context) {
     return DropdownButton<String>(
       value: dropdownValue,
+      dropdownColor: Color.fromARGB(255, 87, 166, 215),
       icon: const Icon(
         Icons.arrow_downward,
+        color: Colors.white,
       ),
       onChanged: (String? value) {
         setState(() {
           dropdownValue = value!;
           //! for search city by select
+          //! got city from weather_service
           city = value;
         });
       },
@@ -32,6 +35,7 @@ class _SelectCityState extends State<SelectCity> {
           value: value,
           child: Text(
             value,
+            style: TextStyle(color: Colors.white),
           ),
         );
       }).toList(),

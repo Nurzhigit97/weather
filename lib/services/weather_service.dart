@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 class WeatherService {
   Future<Weather> getWeatherData() async {
     final uri = Uri.parse(
-        'http://api.weatherapi.com/v1/forecast.json?key=c8a70185a0c34463b4f171826222311&q=$city&days=7&aqi=no&alerts=no');
+        'http://api.weatherapi.com/v1/forecast.json?key=c8a70185a0c34463b4f171826222311&q=${city}&days=7&aqi=no&alerts=no');
     final response = await http.get(uri);
     try {
       return Weather.fromJson(jsonDecode(response.body));
@@ -15,4 +15,4 @@ class WeatherService {
   }
 }
 
-String city = 'Bishkek';
+String? city = 'Bishkek';

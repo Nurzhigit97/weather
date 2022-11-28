@@ -26,7 +26,7 @@ class Weather {
   factory Weather.fromJson(json) {
     return Weather(
       uvIndex: json['current']['uv'],
-      city: json['location']['name'],
+      city: json['location']['name'] ?? "Bishkek",
       date: json['location']['localtime'],
       forecast: json['forecast']['forecastday'][0]['hour'],
       forecastday: json['forecast']['forecastday'][0]['day'],
