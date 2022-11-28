@@ -17,8 +17,8 @@ ThemeData lightTheme() => ThemeData(
 ThemeData darkTheme() => ThemeData(
       brightness: Brightness.dark,
       appBarTheme:
-          const AppBarTheme(backgroundColor: Color.fromARGB(255, 5, 36, 82)),
-      scaffoldBackgroundColor: const Color.fromARGB(255, 5, 36, 82),
+          const AppBarTheme(backgroundColor: Color.fromARGB(255, 10, 67, 153)),
+      scaffoldBackgroundColor: const Color.fromARGB(255, 10, 67, 153),
       iconTheme: const IconThemeData(color: Colors.white),
       textTheme: const TextTheme(
           bodyLarge: TextStyle(
