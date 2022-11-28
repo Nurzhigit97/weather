@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-DropdownButton<Locale> choseLang(BuildContext context) =>
+DropdownButton<Locale> chooseLang(BuildContext context) =>
     DropdownButton<Locale>(
         underline: SizedBox.shrink(),
-        icon: Icon(Icons.language_rounded),
+        icon: Icon(
+          Icons.language_rounded,
+          color: Colors.white,
+        ),
         onChanged: (locale) {
           context.setLocale(locale ?? context.locale);
         },

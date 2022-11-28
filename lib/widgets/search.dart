@@ -55,7 +55,10 @@ class _SearchState extends State<Search> {
                           _textfieldController.clear();
                           FocusScope.of(context).unfocus();
                         },
-                        icon: Icon(Icons.clear)),
+                        icon: Icon(
+                          Icons.clear,
+                          color: Color.fromARGB(173, 255, 255, 255),
+                        )),
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     hintText: 'Search for  cities',
