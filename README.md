@@ -2,15 +2,15 @@
 
 <div >
   <div style="display: flex;  ">
-    <img  width="15%" src="./assets/readmeImages/weather2.jpg"/>
+    <img  width="50%" src="./assets/readmeImages/weather2.jpg"/>
     <span>< ></span>
-    <img width="15%" src="./assets/readmeImages/weather1.jpg"/>
+    <img width="50%" src="./assets/readmeImages/weather1.jpg"/>
     <span>< ></span>
-    <img width="15%" src="./assets/readmeImages/weather.jpg"/>
+    <img width="50%" src="./assets/readmeImages/weather.jpg"/>
     <span>< ></span>
-    <img width="15%" src="./assets/readmeImages/weatherLight.jpg"/>
+    <img width="50%" src="./assets/readmeImages/weatherLight.jpg"/>
     <span>< ></span>
-    <img width="15%" src="./assets/readmeImages/weatherNight.jpg"/>
+    <img width="50%" src="./assets/readmeImages/weatherNight.jpg"/>
     
   </div>
 </div>
