@@ -65,7 +65,7 @@ class Header extends StatelessWidget {
                 ),
 
                 AutoSizeText(
-                  'Max.: ${forecastday?['maxtemp_c']}° Min.: ${forecastday?['mintemp_c']}°',
+                  'Max: ${forecastday?['maxtemp_c'].toInt()}° Min: ${forecastday?['mintemp_c'].toInt()}°',
                   style: TextStyle(fontSize: 17),
                   minFontSize: 17,
                   maxLines: 1,

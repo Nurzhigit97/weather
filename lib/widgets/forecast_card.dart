@@ -20,14 +20,10 @@ class ForecastCard extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 'Today',
                 style: TextStyle(fontSize: 20),
-              ),
-              Text(
-                'Nov,03',
-                style: TextStyle(fontSize: 18),
               ),
             ],
           ),
@@ -62,7 +58,7 @@ class ForecastCard extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                          '${forecast![index]['temp_c']}°',
+                          '${forecast![index]['temp_c'].toInt()}°',
                           style: const TextStyle(fontSize: 18),
                         ),
                       ],

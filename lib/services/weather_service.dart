@@ -15,4 +15,4 @@ class WeatherService {
   }
 }
 
-String? city = 'Bishkek';
+String? city = 'Dubai';

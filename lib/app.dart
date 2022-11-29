@@ -6,6 +6,7 @@ import 'package:weather_api/models/weather_api.dart';
 import 'package:weather_api/services/weather_service.dart';
 import 'package:weather_api/widgets/choose_lang.dart';
 import 'package:weather_api/widgets/forecast_card.dart';
+import 'package:weather_api/widgets/get_by_location.dart';
 import 'package:weather_api/widgets/header.dart';
 import 'package:weather_api/widgets/search.dart';
 import 'package:weather_api/widgets/select_city.dart';
@@ -22,11 +23,14 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   WeatherService weatherService = WeatherService();
   Weather weather = Weather();
+  bool _isLoadinf = true;
+  bool _isToggleTheme = false;
 
   Future getWeather() async {
     weather = await weatherService.getWeatherData();
     setState(() {
       getWeather();
+      _isLoadinf = false;
     });
   }
 
@@ -35,8 +39,6 @@ class _MyAppState extends State<MyApp> {
     getWeather();
     super.initState();
   }
-
-  bool _isToggleTheme = false;
 
   toggleTheme() {
     setState(() {
@@ -71,32 +73,40 @@ class _MyAppState extends State<MyApp> {
                 child: chooseLang(context),
               ),
               SelectCity(),
+              GetByLocation(),
             ],
           ),
-          body: ListView(
-            children: [
-              Search(),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Column(
+          body: _isLoadinf
+              ? const Center(
+                  child: SizedBox(
+                      width: 30,
+                      height: 30,
+                      child: CircularProgressIndicator()),
+                )
+              : ListView(
                   children: [
-                    Header(
-                        cityName: weather.city,
-                        description: weather.text,
-                        stateName: weather.state,
-                        forecastday: weather.forecastday,
-                        temp: weather.temp),
-                    ForecastCard(
-                      forecast: weather.forecast,
-                    ),
-                    WeekWeather(
-                      forecastdata: weather.forecastdata,
+                    Search(),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Column(
+                        children: [
+                          Header(
+                              cityName: weather.city,
+                              description: weather.text,
+                              stateName: weather.state,
+                              forecastday: weather.forecastday,
+                              temp: weather.temp),
+                          ForecastCard(
+                            forecast: weather.forecast,
+                          ),
+                          WeekWeather(
+                            forecastdata: weather.forecastdata,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
         ),
       ),
     );
