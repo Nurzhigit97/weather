@@ -22,7 +22,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   WeatherService weatherService = WeatherService();
-  Weather weather = Weather();
+  Weather? weather = Weather();
   bool _isLoadinf = true;
   bool _isToggleTheme = false;
 
@@ -91,16 +91,16 @@ class _MyAppState extends State<MyApp> {
                       child: Column(
                         children: [
                           Header(
-                              cityName: weather.city,
-                              description: weather.text,
-                              stateName: weather.state,
-                              forecastday: weather.forecastday,
-                              temp: weather.temp),
+                              cityName: weather!.city,
+                              description: weather!.text,
+                              stateName: weather!.state,
+                              forecastday: weather!.forecastday,
+                              temp: weather!.temp),
                           ForecastCard(
-                            forecast: weather.forecast,
+                            forecast: weather!.forecast,
                           ),
                           WeekWeather(
-                            forecastdata: weather.forecastdata,
+                            forecastdata: weather!.forecastdata,
                           ),
                         ],
                       ),
