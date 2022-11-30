@@ -3,10 +3,11 @@ import 'package:weather_api/models/weather_api.dart';
 import 'package:weather_api/constants/api_constants.dart';
 
 class WeatherService {
+  Dio _dio = Dio();
+
   Future<Weather?> getWeatherData() async {
-    Dio dio = Dio();
     try {
-      final response = dio.get(
+      final response = _dio.get(
           '${ApiConsts.baseUrl}/v1/forecast.json?key=${ApiConsts.weatherApi}&q=${city}&lang=${ApiConsts.lang}&days=${ApiConsts.days}&aqi=${ApiConsts.aqi}&alerts=${ApiConsts.alerts}');
       final json = await response;
       return Weather.fromJson(json.data);

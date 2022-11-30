@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_api/app.dart';
-import 'package:weather_api/cubit/setting_state.dart';
-import 'package:weather_api/cubit/theme_cubit.dart';
+import 'package:weather_api/mya_app.dart';
+import 'package:weather_api/cubits/setting_state.dart';
+import 'package:weather_api/cubits/toggleThemeCubit/theme_cubit.dart';
 
 Future<void> main() async {
   //! easy localization
