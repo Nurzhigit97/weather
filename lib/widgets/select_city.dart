@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_api/services/weather_service.dart';
+import 'package:weather_api/repository/api_repository.dart';
 
 const List<String> list = <String>['Bishkek', 'London', 'Dubai'];
 

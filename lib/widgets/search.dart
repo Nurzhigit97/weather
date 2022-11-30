@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_api/services/weather_service.dart';
+import 'package:weather_api/repository/api_repository.dart';
 
 class Search extends StatefulWidget {
   const Search({
@@ -11,13 +11,14 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  WeatherService weatherService = WeatherService();
+  // WeatherRepository weatherService = WeatherRepository();
+  WeatherRepository weatherService = WeatherRepository();
   final _textfieldController = TextEditingController();
   bool _isLoadinf = false;
 
   loadingFunc() async {
     try {
-      await weatherService.getWeatherData();
+      await WeatherRepository().getAll();
       setState(() {
         _isLoadinf = false;
       });

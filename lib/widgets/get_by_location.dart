@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:weather_api/services/weather_service.dart';
+import 'package:weather_api/repository/api_repository.dart';
 
 class GetByLocation extends StatefulWidget {
   GetByLocation({Key? key}) : super(key: key);

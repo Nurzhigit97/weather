@@ -8,6 +8,7 @@ class ThemeToggleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //! получаем кубит и из SettingState свойство isToggle
     return BlocBuilder<ThemeCubit, SettingState>(
       builder: (context, state) {
         return IconButton(
