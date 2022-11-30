@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_api/cubit/setting_state.dart';
+import 'package:weather_api/cubit/theme_cubit.dart';
 import 'package:weather_api/generated/locale_keys.g.dart';
 import 'package:weather_api/models/weather_api.dart';
 import 'package:weather_api/services/weather_service.dart';
@@ -24,7 +27,6 @@ class _MyAppState extends State<MyApp> {
   WeatherService weatherService = WeatherService();
   Weather? weather = Weather();
   bool _isLoadinf = true;
-  bool _isToggleTheme = false;
 
   Future getWeather() async {
     weather = await weatherService.getWeatherData();
@@ -40,75 +42,85 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  toggleTheme() {
-    setState(() {
-      _isToggleTheme = !_isToggleTheme;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      debugShowCheckedModeBanner: false,
-      title: 'NurWeather',
-      theme: _isToggleTheme ? darkTheme() : lightTheme(),
-      home: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(LocaleKeys.nameapp.tr()),
-            elevation: 0,
-            actions: [
-              IconButton(
-                  onPressed: toggleTheme,
-                  icon: _isToggleTheme
-                      ? Icon(Icons.mode_night_rounded)
-                      : Icon(Icons.light_mode)),
-              Padding(
-                padding: const EdgeInsets.only(
-                  right: 20,
-                ),
-                child: chooseLang(context),
-              ),
-              SelectCity(),
-              GetByLocation(),
-            ],
-          ),
-          body: _isLoadinf
-              ? const Center(
-                  child: SizedBox(
-                      width: 30,
-                      height: 30,
-                      child: CircularProgressIndicator()),
-                )
-              : ListView(
-                  children: [
-                    Search(),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Column(
-                        children: [
-                          Header(
-                              cityName: weather!.city,
-                              description: weather!.text,
-                              stateName: weather!.state,
-                              forecastday: weather!.forecastday,
-                              temp: weather!.temp),
-                          ForecastCard(
-                            forecast: weather!.forecast,
-                          ),
-                          WeekWeather(
-                            forecastdata: weather!.forecastdata,
-                          ),
-                        ],
-                      ),
+    return BlocProvider(
+      create: (context) => ThemeCubit(),
+      //! значение bool получаем из SettingState class свойство isToggle
+      child: BlocBuilder<ThemeCubit, SettingState>(builder: ((context, state) {
+        return MaterialApp(
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          debugShowCheckedModeBanner: false,
+          title: 'NurWeather',
+          theme: state.isToggle ? darkTheme() : lightTheme(),
+          home: SafeArea(
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(LocaleKeys.nameapp.tr()),
+                elevation: 0,
+                actions: [
+                  BlocBuilder<ThemeCubit, SettingState>(
+                    builder: (context, state) {
+                      return IconButton(
+                        onPressed: () {
+                          // BlocProvider.of<ThemeCubit>(context)
+                          //     .toggleTheme(value: !state);
+                          final cubit = context.read<ThemeCubit>();
+                          cubit.toggleTheme(value: state.isToggle);
+                        },
+                        icon: state.isToggle
+                            ? Icon(Icons.mode_night_rounded)
+                            : Icon(Icons.light_mode),
+                      );
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 20,
                     ),
-                  ],
-                ),
-        ),
-      ),
+                    child: chooseLang(context),
+                  ),
+                  SelectCity(),
+                  GetByLocation(),
+                ],
+              ),
+              body: _isLoadinf
+                  ? const Center(
+                      child: SizedBox(
+                          width: 30,
+                          height: 30,
+                          child: CircularProgressIndicator()),
+                    )
+                  : ListView(
+                      children: [
+                        Search(),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: Column(
+                            children: [
+                              Header(
+                                  cityName: weather!.city,
+                                  description: weather!.text,
+                                  stateName: weather!.state,
+                                  forecastday: weather!.forecastday,
+                                  temp: weather!.temp),
+                              ForecastCard(
+                                forecast: weather!.forecast,
+                              ),
+                              WeekWeather(
+                                forecastdata: weather!.forecastdata,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
+          ),
+        );
+      })),
     );
   }
 }
