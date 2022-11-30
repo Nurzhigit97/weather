@@ -1,3 +1,15 @@
 {
-  "nameapp": "Аба ырайы"
+  "nameapp": "Аба ырайы",
+  "hourToday": "Бугун",
+  "week":"Аптанын күндөрү",
+  "weekMap": {
+    "monday": "Дүйшөмбү",
+    "tuesday": "Шейшемби",
+    "wednesday": "Шаршемби",
+    "thursday": "Бейшемби",
+    "friday": "Жума",
+    "saturday": "Ишемби",
+    "sunday": "Жекшемби"
+  }
+  
 }

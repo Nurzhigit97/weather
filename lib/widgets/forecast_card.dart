@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:weather_api/generated/locale_keys.g.dart';
 
 class ForecastCard extends StatelessWidget {
   ForecastCard({
@@ -22,7 +24,7 @@ class ForecastCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Today',
+                LocaleKeys.hourToday.tr(),
                 style: TextStyle(fontSize: 20),
               ),
             ],

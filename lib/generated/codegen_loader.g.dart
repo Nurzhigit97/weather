@@ -15,13 +15,46 @@ class CodegenLoader extends AssetLoader{
   }
 
   static const Map<String,dynamic> en = {
-  "nameapp": "Weather"
+  "nameapp": "Weather",
+  "hourToday": "Today",
+  "week": "Week",
+  "weekMap": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  }
 };
 static const Map<String,dynamic> ky = {
-  "nameapp": "Аба ырайы"
+  "nameapp": "Аба ырайы",
+  "hourToday": "Бугун",
+  "week": "Аптанын күндөрү",
+  "weekMap": {
+    "monday": "Дүйшөмбү",
+    "tuesday": "Шейшемби",
+    "wednesday": "Шаршемби",
+    "thursday": "Бейшемби",
+    "friday": "Жума",
+    "saturday": "Ишемби",
+    "sunday": "Жекшемби"
+  }
 };
 static const Map<String,dynamic> ru = {
-  "nameapp": "Погода"
+  "nameapp": "Погода",
+  "hourToday": "Сегодня",
+  "week": "Неделя",
+  "weekMap": {
+    "monday": "Понедельник",
+    "tuesday": "Вторник",
+    "wednesday": "Среда",
+    "thursday": "Четверг",
+    "friday": "Пятница",
+    "saturday": "Суббота",
+    "sunday": "Воскресенье"
+  }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ky": ky, "ru": ru};
 }
