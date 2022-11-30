@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:weather_api/models/weather_api.dart';
+import 'package:weather_api/constants/api_constants.dart';
 
 class WeatherService {
   Future<Weather?> getWeatherData() async {
     Dio dio = Dio();
     try {
       final response = dio.get(
-          'http://api.weatherapi.com/v1/forecast.json?key=c8a70185a0c34463b4f171826222311&q=${city}&lang=ru&days=7&aqi=no&alerts=no');
+          '${ApiConsts.baseUrl}/v1/forecast.json?key=${ApiConsts.weatherApi}&q=${city}&lang=${ApiConsts.lang}&days=${ApiConsts.days}&aqi=${ApiConsts.aqi}&alerts=${ApiConsts.alerts}');
       final json = await response;
       return Weather.fromJson(json.data);
     } on DioError catch (e) {
@@ -16,4 +17,5 @@ class WeatherService {
   }
 }
 
-String? city = 'Jalal-abad';
+//! Получает наз. города из класса ApiConsts
+String? city = ApiConsts.city;
