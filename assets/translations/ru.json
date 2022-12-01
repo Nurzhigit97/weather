@@ -2,6 +2,7 @@
   "nameapp": "Погода",
   "hourToday": "Сегодня",
   "week": "Неделя",
+  "lang": "ru",
   "weekMap": {
     "monday": "Понедельник",
     "tuesday": "Вторник",

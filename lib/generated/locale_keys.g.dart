@@ -4,6 +4,7 @@ abstract class  LocaleKeys {
   static const nameapp = 'nameapp';
   static const hourToday = 'hourToday';
   static const week = 'week';
+  static const lang = 'lang';
   static const weekMap_monday = 'weekMap.monday';
   static const weekMap_tuesday = 'weekMap.tuesday';
   static const weekMap_wednesday = 'weekMap.wednesday';

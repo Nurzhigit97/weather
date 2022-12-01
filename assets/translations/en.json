@@ -2,6 +2,7 @@
   "nameapp": "Weather",
   "hourToday": "Today",
   "week": "Week",
+  "lang":"en",
   "weekMap": {
     "monday": "Monday",
     "tuesday": "Tuesday",

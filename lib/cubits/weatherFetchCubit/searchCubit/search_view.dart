@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:weather_api/repository/api_repository.dart';
 
-class Search extends StatefulWidget {
-  const Search({
+class SearchView extends StatefulWidget {
+  const SearchView({
     super.key,
   });
 
   @override
-  State<Search> createState() => _SearchState();
+  State<SearchView> createState() => _SearchState();
 }
 
-class _SearchState extends State<Search> {
+class _SearchState extends State<SearchView> {
   // WeatherRepository weatherService = WeatherRepository();
   WeatherRepository weatherService = WeatherRepository();
   final _textfieldController = TextEditingController();

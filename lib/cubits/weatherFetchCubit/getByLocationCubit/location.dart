@@ -1,20 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:weather_api/repository/api_repository.dart';
 
-class GetByLocation extends StatefulWidget {
-  GetByLocation({Key? key}) : super(key: key);
-
-  @override
-  State<GetByLocation> createState() => _GetByLocationState();
-}
-
-class _GetByLocationState extends State<GetByLocation> {
+class Location {
   String locationMsg = "Current Loc";
   String? lat;
   String? long;
 
-  Future<Position> getCorrentLOcation() async {
+  Future<Position> getCorrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       return Future.error('Location services  are disabled.');
@@ -43,27 +34,5 @@ class _GetByLocationState extends State<GetByLocation> {
       lat = position.latitude.toString();
       long = position.longitude.toString();
     });
-
-    setState(() {
-      city = "$lat,$long";
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: () {
-          getCorrentLOcation().then((value) {
-            lat = '${value.latitude}';
-            long = '${value.longitude}';
-            setState(() {
-              city = "$lat,$long";
-              print("$lat $long");
-            });
-            //! for listen location update
-            liveLocation();
-          });
-        },
-        icon: Icon(Icons.location_on_outlined));
   }
 }

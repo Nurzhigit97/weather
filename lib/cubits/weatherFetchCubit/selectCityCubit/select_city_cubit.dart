@@ -3,14 +3,14 @@ import 'package:weather_api/repository/api_repository.dart';
 
 const List<String> list = <String>['Bishkek', 'London', 'Dubai'];
 
-class SelectCity extends StatefulWidget {
-  const SelectCity({super.key});
+class SelectCityCubit extends StatefulWidget {
+  const SelectCityCubit({super.key});
 
   @override
-  State<SelectCity> createState() => _SelectCityState();
+  State<SelectCityCubit> createState() => _SelectCityState();
 }
 
-class _SelectCityState extends State<SelectCity> {
+class _SelectCityState extends State<SelectCityCubit> {
   String dropdownValue = list.first;
 
   @override

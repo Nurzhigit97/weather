@@ -9,6 +9,7 @@ class WeatherModel {
   final String state;
   final int humidity;
   final double uvIndex;
+  final String currentIcon;
   final double wind;
   final List forecast;
   final Map<String, dynamic>? forecastday;
@@ -25,9 +26,11 @@ class WeatherModel {
       this.temp = 0,
       this.text = '',
       this.uvIndex = 0,
+      this.currentIcon = '',
       this.wind = 0});
   factory WeatherModel.fromJson(Map<String, dynamic> json) => WeatherModel(
         uvIndex: json['current']['uv'],
+        currentIcon: json['current']['condition']['icon'],
         city: json['location']['name'],
         date: json['location']['localtime'],
         forecast: json['forecast']['forecastday'][0]['hour'],

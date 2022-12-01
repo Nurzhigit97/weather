@@ -18,6 +18,7 @@ class CodegenLoader extends AssetLoader{
   "nameapp": "Weather",
   "hourToday": "Today",
   "week": "Week",
+  "lang": "en",
   "weekMap": {
     "monday": "Monday",
     "tuesday": "Tuesday",
@@ -32,6 +33,7 @@ static const Map<String,dynamic> ky = {
   "nameapp": "Аба ырайы",
   "hourToday": "Бугун",
   "week": "Аптанын күндөрү",
+  "lang": "ky",
   "weekMap": {
     "monday": "Дүйшөмбү",
     "tuesday": "Шейшемби",
@@ -46,6 +48,7 @@ static const Map<String,dynamic> ru = {
   "nameapp": "Погода",
   "hourToday": "Сегодня",
   "week": "Неделя",
+  "lang": "ru",
   "weekMap": {
     "monday": "Понедельник",
     "tuesday": "Вторник",

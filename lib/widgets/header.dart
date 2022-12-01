@@ -9,10 +9,12 @@ class Header extends StatelessWidget {
     required this.stateName,
     required this.temp,
     required this.forecastday,
+    required this.currentIcon,
   });
 
   String cityName;
   String stateName;
+  String currentIcon;
   double temp;
   String description;
   Map<String, dynamic>? forecastday;
@@ -76,7 +78,7 @@ class Header extends StatelessWidget {
           ),
           Expanded(
             child: Image(
-              image: AssetImage('$iconWeather'),
+              image: NetworkImage('https:$currentIcon'),
             ),
           ),
         ],
