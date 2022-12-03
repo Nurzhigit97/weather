@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_api/cubits/setting_state.dart';
-import 'package:weather_api/cubits/toggleThemeCubit/theme_cubit.dart';
+import 'package:weather_api/blocs/setting_state.dart';
+import 'package:weather_api/blocs/theme_cubit.dart';
 
 class ThemeToggleView extends StatelessWidget {
   const ThemeToggleView({Key? key}) : super(key: key);

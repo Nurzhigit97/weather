@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:weather_api/generated/locale_keys.g.dart';
+import 'package:weather_api/resources/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class WeekWeather extends StatelessWidget {
-  WeekWeather({
+  const WeekWeather({
     Key? key,
     required this.forecastdata,
   }) : super(key: key);
 
-  List<dynamic>? forecastdata;
-  List<String> weekList = [
-    LocaleKeys.weekMap_monday.tr(),
-    LocaleKeys.weekMap_tuesday.tr(),
-    LocaleKeys.weekMap_wednesday.tr(),
-    LocaleKeys.weekMap_thursday.tr(),
-    LocaleKeys.weekMap_friday.tr(),
-    LocaleKeys.weekMap_saturday.tr(),
-    LocaleKeys.weekMap_sunday.tr(),
-  ];
+  final List<dynamic>? forecastdata;
 
   @override
   Widget build(BuildContext context) {
+    final weekList = <String>[
+      LocaleKeys.weekMap_monday.tr(),
+      LocaleKeys.weekMap_tuesday.tr(),
+      LocaleKeys.weekMap_wednesday.tr(),
+      LocaleKeys.weekMap_thursday.tr(),
+      LocaleKeys.weekMap_friday.tr(),
+      LocaleKeys.weekMap_saturday.tr(),
+      LocaleKeys.weekMap_sunday.tr(),
+    ];
+
     return Container(
       margin: const EdgeInsets.only(top: 10),
       padding: const EdgeInsets.all(15),

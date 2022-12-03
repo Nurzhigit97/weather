@@ -1,4 +1,4 @@
-import 'package:weather_api/models/weather_model.dart';
+import 'package:weather_api/data/models/weather_model.dart';
 import 'package:dio/dio.dart';
 
 final Dio _dio = Dio();

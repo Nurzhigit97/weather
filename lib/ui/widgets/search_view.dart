@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:weather_api/repository/api_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_api/blocs/selected_city_cubit.dart';
+import 'package:weather_api/data/reposotory/api_repository.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({
@@ -11,14 +13,15 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchState extends State<SearchView> {
-  // WeatherRepository weatherService = WeatherRepository();
-  WeatherRepository weatherService = WeatherRepository();
+  late final _selecCityCubit = context.read<SelectCityCubit>();
+
+  final weatherService = WeatherRepository();
   final _textfieldController = TextEditingController();
   bool _isLoadinf = false;
 
   loadingFunc() async {
     try {
-      await WeatherRepository().getAll();
+      await WeatherRepository().getAll(_selecCityCubit.state);
       setState(() {
         _isLoadinf = false;
       });
@@ -30,7 +33,7 @@ class _SearchState extends State<SearchView> {
   searchCity(String value) {
     return (setState(() {
       _isLoadinf = true;
-      city = value;
+
       Future.delayed(
         const Duration(seconds: 1),
         () {

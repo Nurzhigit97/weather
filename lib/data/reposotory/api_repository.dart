@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:weather_api/generated/locale_keys.g.dart';
-import 'package:weather_api/models/weather_model.dart';
+import 'package:weather_api/blocs/selected_city_cubit.dart';
+import 'package:weather_api/resources/generated/locale_keys.g.dart';
+import 'package:weather_api/data/models/weather_model.dart';
 
 class WeatherRepository {
 /* Future<Weather> getWeatherData() async {
@@ -15,11 +16,11 @@ class WeatherRepository {
 
   Dio _dio = Dio();
 
-  Future<WeatherModel> getAll() async {
+  Future<WeatherModel> getAll(City city) async {
     try {
       Map<String, dynamic> params = {
         'key': "c8a70185a0c34463b4f171826222311",
-        'q': city,
+        'q': city.name(),
         "lang": LocaleKeys.lang.tr(),
         "days": 7,
       };
@@ -33,5 +34,3 @@ class WeatherRepository {
     }
   }
 }
-
-String? city = "Bishkek";

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_api/cubits/weatherFetchCubit/getByLocationCubit/location.dart';
-import 'package:weather_api/repository/api_repository.dart';
+import 'package:weather_api/resources/location.dart';
 
 class GetByLocationView extends StatefulWidget {
   GetByLocationView({Key? key}) : super(key: key);
@@ -20,12 +19,12 @@ class _GetByLocationState extends State<GetByLocationView> {
           lat = await res.latitude;
           long = await res.longitude;
           setState(() {
-            city = "${lat},${long}";
+            // city = "${lat},${long}";
             print("$lat $long");
             //! for listen location update
             Location().liveLocation();
             setState(() {
-              city = "$lat,$long";
+              // city = "$lat,$long";
             });
           });
         },

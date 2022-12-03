@@ -1,5 +1,5 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:weather_api/cubits/setting_state.dart';
+import 'package:weather_api/blocs/setting_state.dart';
 
 //! Cubit будет получать свойства из SettingState
 class ThemeCubit extends Cubit<SettingState> {

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_api/cubits/toggleThemeCubit/theme_toggle_view.dart';
-import 'package:weather_api/cubits/weatherFetchCubit/getByLocationCubit/getbyloc_view.dart';
-import 'package:weather_api/cubits/weatherFetchCubit/searchCubit/search_view.dart';
-import 'package:weather_api/cubits/weatherFetchCubit/weather_fetch_cubit.dart';
-import 'package:weather_api/cubits/weatherFetchCubit/weather_fetch_state.dart';
-import 'package:weather_api/generated/locale_keys.g.dart';
-import 'package:weather_api/widgets/choose_lang.dart';
-import 'package:weather_api/widgets/forecast_card.dart';
-import 'package:weather_api/widgets/header.dart';
-import 'package:weather_api/cubits/weatherFetchCubit/selectCityCubit/select_city_cubit.dart';
-import 'package:weather_api/widgets/week_weather.dart';
+import 'package:weather_api/blocs/selected_city_cubit.dart';
+import 'package:weather_api/ui/widgets/choose_lang.dart';
+import 'package:weather_api/ui/widgets/forecast_card.dart';
+import 'package:weather_api/ui/widgets/header.dart';
+import 'package:weather_api/ui/widgets/select_city_view.dart';
+import 'package:weather_api/ui/widgets/week_weather.dart';
+import 'package:weather_api/ui/widgets/theme_toggle_view.dart';
+import 'package:weather_api/ui/widgets/getbyloc_view.dart';
+import 'package:weather_api/ui/widgets/search_view.dart';
+import 'package:weather_api/blocs/weather_fetch_cubit.dart';
+import 'package:weather_api/blocs/weather_fetch_state.dart';
+import 'package:weather_api/resources/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,7 +27,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final cubit = context.read<WeatherCubit>();
-      cubit.fetchWeather();
+      final selectCityCubit = context.read<SelectCityCubit>();
+      cubit.fetchWeather(selectCityCubit.state);
     });
   }
 
@@ -38,7 +40,8 @@ class _HomePageState extends State<HomePage> {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is ResponseWeatherState) {
+        }
+        if (state is ResponseWeatherState) {
           final weather = state.weather;
           return SafeArea(
             child: Scaffold(
@@ -53,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: chooseLang(context),
                   ),
-                  SelectCityCubit(),
+                  SelectCityView(),
                   GetByLocationView(),
                 ],
               ),
@@ -84,7 +87,8 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           );
-        } else if (state is ErrorWeatherState) {
+        }
+        if (state is ErrorWeatherState) {
           return Center(
             child: Text(state.message),
           );
