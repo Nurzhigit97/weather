@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_api/blocs/selected_city_cubit.dart';
-import 'package:weather_api/data/reposotory/api_repository.dart';
+import 'package:weather_api/data/repository/weather_repository.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({
@@ -21,7 +21,7 @@ class _SearchState extends State<SearchView> {
 
   loadingFunc() async {
     try {
-      await WeatherRepository().getAll(_selecCityCubit.state);
+      await WeatherRepository().fetchWeatherByCity(_selecCityCubit.state);
       setState(() {
         _isLoadinf = false;
       });

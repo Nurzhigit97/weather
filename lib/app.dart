@@ -27,7 +27,6 @@ class App extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'NurWeather',
             theme: state.isToggle ? darkTheme() : lightTheme(),
-            // home: HomePage(),
             home: HomePage(),
           );
         }),

@@ -3,6 +3,11 @@
   "hourToday": "Сегодня",
   "week": "Неделя",
   "lang": "ru",
+  "cities": {
+    "london": "Лондон",
+    "bishkek": "Бишкек",
+    "dubai": "Дубай"
+  },
   "weekMap": {
     "monday": "Понедельник",
     "tuesday": "Вторник",

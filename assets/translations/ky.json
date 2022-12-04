@@ -3,6 +3,11 @@
   "hourToday": "Бугун",
   "week":"Аптанын күндөрү",
   "lang":"ky",
+  "cities": {
+    "london": "Лондон",
+    "bishkek": "Бишкек",
+    "dubai": "Дубай"
+  },
   "weekMap": {
     "monday": "Дүйшөмбү",
     "tuesday": "Шейшемби",

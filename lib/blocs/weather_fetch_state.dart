@@ -6,12 +6,12 @@ class InitWeatherState extends WeatherState {}
 
 class LoadingWeatherState extends WeatherState {}
 
+class LoadedWeatherState extends WeatherState {
+  final WeatherModel weather;
+  LoadedWeatherState(this.weather);
+}
+
 class ErrorWeatherState extends WeatherState {
   final String message;
   ErrorWeatherState(this.message);
-}
-
-class ResponseWeatherState extends WeatherState {
-  final WeatherModel weather;
-  ResponseWeatherState(this.weather);
 }

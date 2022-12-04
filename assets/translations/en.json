@@ -2,7 +2,12 @@
   "nameapp": "Weather",
   "hourToday": "Today",
   "week": "Week",
-  "lang":"en",
+  "lang": "en",
+  "cities": {
+    "london": "London",
+    "bishkek": "Bishkek",
+    "dubai": "Dubai"
+  },
   "weekMap": {
     "monday": "Monday",
     "tuesday": "Tuesday",

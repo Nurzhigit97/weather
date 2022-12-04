@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_api/generated/locale_keys.g.dart';
 
 enum City { Bishkek, London, Dubai }
 
@@ -12,13 +14,13 @@ class SelectCityCubit extends Cubit<City> {
 extension OnCity on City {
   String name() {
     if (this == City.Bishkek) {
-      return 'Бишкек';
+      return LocaleKeys.cities_bishkek.tr();
     }
 
     if (this == City.London) {
-      return 'Лондон';
+      return LocaleKeys.cities_london.tr();
     }
 
-    return 'Дубай';
+    return LocaleKeys.cities_dubai.tr();
   }
 }

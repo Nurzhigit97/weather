@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_api/blocs/selected_city_cubit.dart';
+import 'package:weather_api/blocs/theme_cubit.dart';
 import 'package:weather_api/ui/widgets/choose_lang.dart';
 import 'package:weather_api/ui/widgets/forecast_card.dart';
 import 'package:weather_api/ui/widgets/header.dart';
@@ -26,22 +27,22 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final cubit = context.read<WeatherCubit>();
+      final weatherCubit = context.read<WeatherFetchCubit>();
       final selectCityCubit = context.read<SelectCityCubit>();
-      cubit.fetchWeather(selectCityCubit.state);
+      weatherCubit.fetchWeather(selectCityCubit.state);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WeatherCubit, WeatherState>(
+    return BlocBuilder<WeatherFetchCubit, WeatherState>(
       builder: (context, state) {
         if (state is InitWeatherState || state is LoadingWeatherState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
-        if (state is ResponseWeatherState) {
+        if (state is LoadedWeatherState) {
           final weather = state.weather;
           return SafeArea(
             child: Scaffold(
