@@ -9,7 +9,6 @@ class WeatherFetchCubit extends Cubit<WeatherState> {
   WeatherFetchCubit(this._repository) : super(InitWeatherState());
 
   Future<void> fetchWeather() async {
-    emit(LoadingWeatherState());
     try {
       emit(LoadingWeatherState());
       final response = await _repository.fetchWeather();
@@ -20,7 +19,6 @@ class WeatherFetchCubit extends Cubit<WeatherState> {
   }
 
   Future<void> searchWeatherByCity(String city) async {
-    emit(LoadingWeatherState());
     try {
       emit(LoadingWeatherState());
       final response = await _repository.searchWeatherByCity(city);
@@ -31,7 +29,6 @@ class WeatherFetchCubit extends Cubit<WeatherState> {
   }
 
   Future<void> fetchWeatherByLocation(String city) async {
-    emit(LoadingWeatherState());
     try {
       emit(LoadingWeatherState());
       final response = await _repository.searchWeatherByCity(city);
@@ -42,7 +39,6 @@ class WeatherFetchCubit extends Cubit<WeatherState> {
   }
 
   Future<void> fetchWeatherByCity(City city) async {
-    emit(LoadingWeatherState());
     try {
       emit(LoadingWeatherState());
       final response = await _repository.selectWeatherByCity(city);

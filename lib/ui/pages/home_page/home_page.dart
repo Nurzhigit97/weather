@@ -14,35 +14,27 @@ import 'package:weather_api/blocs/weather_fetch_state.dart';
 import 'package:weather_api/resources/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final weatherCubit = context.read<WeatherFetchCubit>();
-      final selectCityCubit = context.read<SelectCityCubit>();
-      weatherCubit.fetchWeatherByCity(selectCityCubit.state);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final weatherCubit = context.read<WeatherFetchCubit>();
+    weatherCubit.fetchWeather();
     Future refresh() async {
       await context.read<WeatherFetchCubit>().fetchWeather();
     }
 
     return BlocBuilder<WeatherFetchCubit, WeatherState>(
       builder: (context, state) {
-        if (state is InitWeatherState || state is LoadingWeatherState) {
+        if (state is LoadingWeatherState) {
           return const Center(
             child: CircularProgressIndicator(),
+          );
+        }
+        if (state is ErrorWeatherState) {
+          return Center(
+            child: Text(state.message),
           );
         }
         if (state is LoadedWeatherState) {
@@ -95,14 +87,8 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         }
-        if (state is ErrorWeatherState) {
-          return Center(
-            child: Text(state.message),
-          );
-        }
-        return Center(
-          child: Text(state.toString()),
-        );
+
+        return SizedBox.shrink();
       },
     );
   }
