@@ -29,8 +29,8 @@ class WeatherRepository {
           queryParameters: params);
       final json = response.data;
       return WeatherModel.fromJson(json);
-    } catch (err) {
-      return Future.error('Get Weather Error: $err');
+    } on DioError catch (err) {
+      return Future.error('Error:${err.message}');
     }
   }
 
@@ -47,8 +47,8 @@ class WeatherRepository {
           queryParameters: params);
       final json = response.data;
       return WeatherModel.fromJson(json);
-    } catch (err) {
-      return Future.error('Get Weather Error: $err');
+    } on DioError catch (err) {
+      return Future.error('Error:${err.message}');
     }
   }
 
@@ -65,8 +65,8 @@ class WeatherRepository {
           queryParameters: params);
       final json = response.data;
       return WeatherModel.fromJson(json);
-    } catch (e) {
-      return Future.error('get_weather_error');
+    } on DioError catch (err) {
+      return Future.error('Error:${err.message}');
     }
   }
 }
