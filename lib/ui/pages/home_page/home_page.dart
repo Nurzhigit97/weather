@@ -1,9 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_api/blocs/selected_city_cubit.dart';
-import 'package:weather_api/blocs/theme_cubit.dart';
-import 'package:weather_api/data/repository/weather_repository.dart';
 import 'package:weather_api/ui/widgets/choose_lang.dart';
 import 'package:weather_api/ui/widgets/forecast_card.dart';
 import 'package:weather_api/ui/widgets/header.dart';
