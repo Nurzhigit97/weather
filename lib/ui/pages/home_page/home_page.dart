@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_api/blocs/selected_city_cubit.dart';
 import 'package:weather_api/blocs/theme_cubit.dart';
+import 'package:weather_api/data/repository/weather_repository.dart';
 import 'package:weather_api/ui/widgets/choose_lang.dart';
 import 'package:weather_api/ui/widgets/forecast_card.dart';
 import 'package:weather_api/ui/widgets/header.dart';
@@ -29,12 +31,16 @@ class _HomePageState extends State<HomePage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final weatherCubit = context.read<WeatherFetchCubit>();
       final selectCityCubit = context.read<SelectCityCubit>();
-      weatherCubit.fetchWeather(selectCityCubit.state);
+      weatherCubit.fetchWeatherByCity(selectCityCubit.state);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    Future refresh() async {
+      await context.read<WeatherFetchCubit>().fetchWeather();
+    }
+
     return BlocBuilder<WeatherFetchCubit, WeatherState>(
       builder: (context, state) {
         if (state is InitWeatherState || state is LoadingWeatherState) {
@@ -61,30 +67,33 @@ class _HomePageState extends State<HomePage> {
                   GetByLocationView(),
                 ],
               ),
-              body: ListView(
-                children: [
-                  SearchView(),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: Column(
-                      children: [
-                        Header(
-                            cityName: weather.city,
-                            description: weather.text,
-                            stateName: weather.state,
-                            forecastday: weather.forecastday,
-                            temp: weather.temp,
-                            currentIcon: weather.currentIcon),
-                        ForecastCard(
-                          forecast: weather.forecast,
-                        ),
-                        WeekWeather(
-                          forecastdata: weather.forecastdata,
-                        ),
-                      ],
+              body: RefreshIndicator(
+                onRefresh: refresh,
+                child: ListView(
+                  children: [
+                    SearchView(),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Column(
+                        children: [
+                          Header(
+                              cityName: weather.city,
+                              description: weather.text,
+                              stateName: weather.state,
+                              forecastday: weather.forecastday,
+                              temp: weather.temp,
+                              currentIcon: weather.currentIcon),
+                          ForecastCard(
+                            forecast: weather.forecast,
+                          ),
+                          WeekWeather(
+                            forecastdata: weather.forecastdata,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

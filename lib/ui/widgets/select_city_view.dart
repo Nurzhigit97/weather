@@ -26,7 +26,7 @@ class SelectCityView extends StatelessWidget {
           onChanged: (City? value) {
             if (value == null) return;
             selecCityCubit.select(value);
-            weatherCubit.fetchWeather(value);
+            weatherCubit.fetchWeatherByCity(value);
           },
           items: City.values.map<DropdownMenuItem<City>>((City value) {
             return DropdownMenuItem<City>(

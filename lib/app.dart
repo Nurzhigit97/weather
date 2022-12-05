@@ -9,7 +9,7 @@ import 'package:weather_api/blocs/theme_cubit.dart';
 import 'package:weather_api/ui/widgets/toggle_dark_light_theme.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  App({super.key});
 
   @override
   Widget build(BuildContext context) {
