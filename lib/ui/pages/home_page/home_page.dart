@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_api/blocs/selected_city_cubit.dart';
+import 'package:weather_api/resources/local_notificatioin/api/notification_api.dart';
+import 'package:weather_api/resources/local_notificatioin/simple_notification.dart';
 import 'package:weather_api/ui/widgets/choose_lang.dart';
 import 'package:weather_api/ui/widgets/forecast_card.dart';
 import 'package:weather_api/ui/widgets/header.dart';
@@ -61,6 +62,7 @@ class HomePage extends StatelessWidget {
                 child: ListView(
                   children: [
                     SearchView(),
+                    SheduledNotification(temp: weather.temp),
                     Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: Column(
