@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:weather_api/generated/locale_keys.g.dart';
 
 part 'internet_state.dart';
 
@@ -14,7 +16,7 @@ class InternetCubit extends Cubit<InternetState> {
   }
 
   void notConnected() {
-    emit(NotConnectedState(message: "Not Connected"));
+    emit(NotConnectedState(message: LocaleKeys.checkInternet.tr()));
   }
 
   void checkConnection() {

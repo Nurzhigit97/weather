@@ -3,7 +3,7 @@
 
 class WeatherModel {
   final String city;
-  final double temp;
+  final num temp;
   final String text;
   final String date;
   final String state;
@@ -39,7 +39,7 @@ class WeatherModel {
         forecastdata: json['forecast']['forecastday'],
         humidity: json['current']['humidity'],
         state: json['location']['region'],
-        temp: json['current']['temp_c'],
+        temp: (json['current']['temp_c']).round(),
         text: json['current']['condition']['text'],
         wind: json['current']['wind_kph'],
       );

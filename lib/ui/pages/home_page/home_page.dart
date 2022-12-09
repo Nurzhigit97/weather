@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_api/blocs/bloc/internet_bloc.dart';
 import 'package:weather_api/blocs/internet_cubit.dart';
+import 'package:weather_api/resources/internet.dart';
 import 'package:weather_api/resources/local_notificatioin/simple_notification.dart';
 import 'package:weather_api/ui/widgets/choose_lang.dart';
 import 'package:weather_api/ui/widgets/forecast_card.dart';
@@ -18,8 +18,20 @@ import 'package:weather_api/blocs/weather_fetch_state.dart';
 import 'package:weather_api/resources/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    final fetchWeather = context.read<WeatherFetchCubit>();
+    fetchWeather.fetchWeather();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +46,11 @@ class HomePage extends StatelessWidget {
           elevation: 0,
           actions: [
             ThemeToggleView(),
-            BlocProvider(
-              create: (context) => InternetCubit()..checkConnection(),
-              // create: (context) => InternetBloc(),//! start for bloc
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  right: 20,
-                ),
-                child: chooseLang(context),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 20,
               ),
+              child: chooseLang(context),
             ),
             SelectCityView(),
             GetByLocationView(),
@@ -55,6 +63,10 @@ class HomePage extends StatelessWidget {
               child: Column(
                 children: [
                   SearchView(),
+                  BlocProvider(
+                    create: (context) => InternetCubit()..checkConnection(),
+                    child: Internet(),
+                  ),
                   BlocBuilder<WeatherFetchCubit, WeatherState>(
                     builder: (context, state) {
                       if (state is ErrorWeatherState) {

@@ -7,7 +7,7 @@ import 'package:weather_api/blocs/weather_fetch_state.dart';
 import 'package:weather_api/resources/local_notificatioin/api/notification_api.dart';
 
 class SheduledNotification extends StatefulWidget {
-  double temp;
+  num temp;
   String cityName;
   SheduledNotification({
     Key? key,

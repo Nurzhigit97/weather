@@ -3,6 +3,7 @@
   "hourToday": "Сегодня",
   "week": "Неделя",
   "lang": "ru",
+  "checkInternet": "Нет соедиения с интернетом",
   "cities": {
     "london": "Лондон",
     "bishkek": "Бишкек",

@@ -3,6 +3,7 @@
   "hourToday": "Today",
   "week": "Week",
   "lang": "en",
+  "checkInternet": "No internet connection",
   "cities": {
     "london": "London",
     "bishkek": "Bishkek",
