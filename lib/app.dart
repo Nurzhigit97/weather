@@ -21,7 +21,7 @@ class App extends StatelessWidget {
       //! easyLocalization
       debugShowCheckedModeBanner: false,
       title: 'NurWeather',
-      theme: themeCubit.state.isToggle ? darkTheme() : lightTheme(),
+      theme: themeCubit.state.isToggle! ? darkTheme() : lightTheme(),
       home: HomePage(),
     );
   }

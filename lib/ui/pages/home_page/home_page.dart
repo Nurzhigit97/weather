@@ -42,20 +42,15 @@ class HomePage extends StatelessWidget {
             GetByLocationView(),
           ],
         ),
-        body: RefreshIndicator(
-          onRefresh: refresh,
-          child: ListView(
-            children: [
-              Column(
+        body: ListView(
+          children: [
+            RefreshIndicator(
+              onRefresh: refresh,
+              child: Column(
                 children: [
                   SearchView(),
                   BlocBuilder<WeatherFetchCubit, WeatherState>(
                     builder: (context, state) {
-                      if (state is LoadingWeatherState) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
                       if (state is ErrorWeatherState) {
                         return Center(
                           child: Text(
@@ -89,13 +84,15 @@ class HomePage extends StatelessWidget {
                           ),
                         );
                       }
-                      return SizedBox.shrink();
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
                     },
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -6,14 +6,6 @@ import 'package:weather_api/data/models/weather_model.dart';
 class WeatherRepository {
   Dio _dio;
   WeatherRepository(this._dio);
-/* Future<Weather> getWeatherData() async {
-    final response = await http.get(Uri.parse(
-        '${ApiConsts.baseUrl}/v1/forecast.json?key=f413fe52174c434294f134955220812&q=Bishkek&lang=ru&days=7&aqi=no&alerts=no'));
-
-    final dataWeather = weatherFromJson(utf8.decode(response.bodyBytes));
-    print(dataWeather);
-    return dataWeather;
-  }  */
 
   Future<WeatherModel> fetchWeather() async {
     try {

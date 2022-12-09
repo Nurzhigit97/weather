@@ -16,9 +16,9 @@ class ThemeToggleView extends StatelessWidget {
             // BlocProvider.of<ThemeCubit>(context)
             //     .toggleTheme(value: !state);
             final cubit = context.read<ThemeCubit>();
-            cubit.toggleTheme(value: state.isToggle);
+            cubit.toggleTheme(value: state.isToggle!);
           },
-          icon: state.isToggle
+          icon: state.isToggle!
               ? Icon(Icons.mode_night_rounded)
               : Icon(Icons.light_mode),
         );

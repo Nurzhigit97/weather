@@ -23,12 +23,12 @@ class _SheduledNotificationState extends State<SheduledNotification> {
   NotificationApi notificationApi = NotificationApi();
   @override
   void initState() {
-    super.initState();
     notificationApi.initializeNotifications();
     NotificationApi.sheduleNotification(
       'WeatherNur',
-      '${widget.cityName}: ${widget.temp}}',
+      'Weather: ${widget.temp.floor()}}',
     );
+    super.initState();
   }
 
   @override
@@ -49,7 +49,7 @@ class _SheduledNotificationState extends State<SheduledNotification> {
               children: [
                 // ElevatedButton.icon(
                 //   onPressed: () => NotificationApi.sendNotification(
-                //       'WeatherNur', 'Bishkek: ${widget.temp}'),
+                //       'WeatherNur', 'Bishkek: ${widget.temp.floor()}'),
                 //   label: Text('SimpleNotf'),
                 //   icon: Icon(Icons.schedule),
                 // ),
