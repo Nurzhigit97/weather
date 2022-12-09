@@ -68,11 +68,14 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
           actions: [
             ThemeToggleView(),
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 20,
+            BlocProvider(
+              create: (context) => InternetCubit()..checkConnection(),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  right: 20,
+                ),
+                child: chooseLang(context),
               ),
-              child: chooseLang(context),
             ),
             SelectCityView(),
             GetByLocationView(),
@@ -85,10 +88,6 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   SearchView(),
-                  BlocProvider(
-                    create: (context) => InternetCubit()..checkConnection(),
-                    child: Internet(),
-                  ),
                   BlocBuilder<WeatherFetchCubit, WeatherState>(
                     builder: (context, state) {
                       if (state is ErrorWeatherState) {
@@ -124,20 +123,9 @@ class _HomePageState extends State<HomePage> {
                           ),
                         );
                       }
-                      return hasInternet
-                          ? Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : Center(
-                              child: Text(
-                                '${hasInternet ? "" : "Not Internet"}',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: hasInternet
-                                        ? Colors.green
-                                        : Colors.red),
-                              ),
-                            );
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
                     },
                   ),
                 ],
