@@ -6,6 +6,7 @@ import 'package:weather_api/blocs/internet_cubit.dart';
 DropdownButton<Locale> chooseLang(BuildContext context) =>
     DropdownButton<Locale>(
         underline: SizedBox.shrink(),
+        //! End. InternetBloc
         icon: BlocConsumer<InternetCubit, InternetState>(
           listener: (context, state) {
             if (state is NotConnectedState) {

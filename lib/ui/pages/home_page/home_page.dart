@@ -1,11 +1,9 @@
 import 'dart:async';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:weather_api/blocs/bloc/internet_bloc.dart';
 import 'package:weather_api/blocs/internet_cubit.dart';
-import 'package:weather_api/resources/internet.dart';
 import 'package:weather_api/resources/local_notificatioin/simple_notification.dart';
 import 'package:weather_api/ui/widgets/choose_lang.dart';
 import 'package:weather_api/ui/widgets/forecast_card.dart';
@@ -20,43 +18,11 @@ import 'package:weather_api/blocs/weather_fetch_state.dart';
 import 'package:weather_api/resources/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  late StreamSubscription subscription;
-  late StreamSubscription internetSubscription;
-  bool hasInternet = false;
-  ConnectivityResult result = ConnectivityResult.none;
-
-  @override
-  void initState() {
-    super.initState();
-    subscription = Connectivity().onConnectivityChanged.listen((result) {
-      setState(() => this.result = result);
-    });
-    internetSubscription =
-        InternetConnectionChecker().onStatusChange.listen((status) {
-      final hasInternet = status == InternetConnectionStatus.connected;
-      setState(() => this.hasInternet = hasInternet);
-    });
-  }
-
-  @override
-  void dispose() {
-    subscription.cancel();
-    internetSubscription.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final weatherCubit = context.read<WeatherFetchCubit>();
-    weatherCubit.fetchWeather();
     Future refresh() async {
       await context.read<WeatherFetchCubit>().fetchWeather();
     }
@@ -70,6 +36,7 @@ class _HomePageState extends State<HomePage> {
             ThemeToggleView(),
             BlocProvider(
               create: (context) => InternetCubit()..checkConnection(),
+              // create: (context) => InternetBloc(),//! start for bloc
               child: Padding(
                 padding: const EdgeInsets.only(
                   right: 20,
