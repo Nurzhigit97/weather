@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:weather_api/resources/local_notificatioin/simple_notification.dart';
 import 'package:weather_api/ui/widgets/choose_lang.dart';
 import 'package:weather_api/ui/widgets/forecast_card.dart';
@@ -14,8 +18,38 @@ import 'package:weather_api/blocs/weather_fetch_state.dart';
 import 'package:weather_api/resources/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late StreamSubscription subscription;
+  late StreamSubscription internetSubscription;
+  bool hasInternet = false;
+  ConnectivityResult result = ConnectivityResult.none;
+
+  @override
+  void initState() {
+    super.initState();
+    subscription = Connectivity().onConnectivityChanged.listen((result) {
+      setState(() => this.result = result);
+    });
+    internetSubscription =
+        InternetConnectionChecker().onStatusChange.listen((status) {
+      final hasInternet = status == InternetConnectionStatus.connected;
+      setState(() => this.hasInternet = hasInternet);
+    });
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    internetSubscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +118,20 @@ class HomePage extends StatelessWidget {
                           ),
                         );
                       }
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return hasInternet
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : Center(
+                              child: Text(
+                                '${hasInternet ? "" : "Not Internet"}',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: hasInternet
+                                        ? Colors.green
+                                        : Colors.red),
+                              ),
+                            );
                     },
                   ),
                 ],
