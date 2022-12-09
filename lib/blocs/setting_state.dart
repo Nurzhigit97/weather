@@ -2,6 +2,5 @@
 //! для хранения свойств чтобы в Cubit передавать
 class SettingState {
   final bool isToggle;
-  final String? getCityByLocation;
-  SettingState({this.getCityByLocation, required this.isToggle});
+  SettingState({required this.isToggle});
 }

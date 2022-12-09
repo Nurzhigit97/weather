@@ -11,42 +11,49 @@ class SearchView extends StatelessWidget {
     context.locale;
     final weatherCubit = context.read<WeatherFetchCubit>();
     final inputController = TextEditingController();
-    return Container(
-      child: TextField(
-        controller: inputController,
-        onEditingComplete: () {
-          weatherCubit.searchWeatherByCity(
-            inputController.text.toLowerCase(),
-          );
-          inputController.text = '';
-        },
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-          fontStyle: FontStyle.italic,
-        ),
-        decoration: InputDecoration(
-          suffixIcon: Icon(
-            Icons.search,
-            color: Colors.white,
+    return ListView(
+      children: [
+        Container(
+          child: TextField(
+            controller: inputController,
+            onEditingComplete: () {
+              if (inputController.text.isEmpty) return;
+              weatherCubit.searchWeatherByCity(
+                inputController.text.toLowerCase(),
+              );
+
+              inputController.text = '';
+            },
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontStyle: FontStyle.italic,
+            ),
+            decoration: InputDecoration(
+              suffixIcon: Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              hintText: 'Search for  cities',
+              hintStyle:
+                  const TextStyle(color: Color.fromARGB(133, 255, 255, 255)),
+              filled: true,
+              fillColor: const Color.fromARGB(18, 255, 255, 255),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(15)),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(15)),
+              disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(15)),
+            ),
           ),
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-          hintText: 'Search for  cities',
-          hintStyle: const TextStyle(color: Color.fromARGB(133, 255, 255, 255)),
-          filled: true,
-          fillColor: const Color.fromARGB(18, 255, 255, 255),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(15)),
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(15)),
-          disabledBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(15)),
         ),
-      ),
+      ],
     );
   }
 }

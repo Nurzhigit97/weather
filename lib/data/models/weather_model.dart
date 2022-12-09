@@ -29,7 +29,7 @@ class WeatherModel {
       this.currentIcon = '',
       this.wind = 0});
 
-  factory WeatherModel.fromJson(Map<String, dynamic> json) => WeatherModel(
+  factory WeatherModel.fromJson(json) => WeatherModel(
         uvIndex: json['current']['uv'],
         currentIcon: json['current']['condition']['icon'],
         city: json['location']['name'],

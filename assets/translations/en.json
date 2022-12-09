@@ -8,6 +8,7 @@
     "bishkek": "Bishkek",
     "dubai": "Dubai"
   },
+  "errorFetch": "No such city found, you may have mistyped the name",
   "weekMap": {
     "monday": "Monday",
     "tuesday": "Tuesday",

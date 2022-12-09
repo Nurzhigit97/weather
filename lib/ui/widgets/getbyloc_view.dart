@@ -16,7 +16,7 @@ class GetByLocationView extends StatelessWidget {
           final lat = await currentLocation.latitude;
           final long = await currentLocation.longitude;
           final resLocation = '$lat,$long';
-          weatherCubit.fetchWeatherByLocation(resLocation);
+          weatherCubit.searchWeatherByCity(resLocation);
         },
         icon: Icon(Icons.location_on_outlined));
   }

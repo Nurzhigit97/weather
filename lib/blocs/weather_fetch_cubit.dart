@@ -14,27 +14,19 @@ class WeatherFetchCubit extends Cubit<WeatherState> {
       final response = await _repository.fetchWeather();
       emit(LoadedWeatherState(response));
     } on DioError catch (err) {
-      emit(ErrorWeatherState(err.message));
+      emit(ErrorWeatherState(err.message.toString()));
     }
   }
 
   Future<void> searchWeatherByCity(String city) async {
     try {
       emit(LoadingWeatherState());
-      final response = await _repository.searchWeatherByCity(city);
-      emit(LoadedWeatherState(response));
-    } on DioError catch (err) {
-      emit(ErrorWeatherState(err.message));
-    }
-  }
 
-  Future<void> fetchWeatherByLocation(String city) async {
-    try {
-      emit(LoadingWeatherState());
       final response = await _repository.searchWeatherByCity(city);
+
       emit(LoadedWeatherState(response));
-    } on DioError catch (err) {
-      emit(ErrorWeatherState(err.message));
+    } catch (err) {
+      emit(ErrorWeatherState(err.toString()));
     }
   }
 
@@ -44,7 +36,7 @@ class WeatherFetchCubit extends Cubit<WeatherState> {
       final response = await _repository.selectWeatherByCity(city);
       emit(LoadedWeatherState(response));
     } on DioError catch (err) {
-      emit(ErrorWeatherState(err.message));
+      emit(ErrorWeatherState(err.message.toString()));
     }
   }
 }

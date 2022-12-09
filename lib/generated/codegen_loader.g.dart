@@ -6,65 +6,76 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart' show AssetLoader;
 
-class CodegenLoader extends AssetLoader {
+class CodegenLoader extends AssetLoader{
   const CodegenLoader();
 
   @override
-  Future<Map<String, dynamic>> load(String fullPath, Locale locale) {
+  Future<Map<String, dynamic>> load(String fullPath, Locale locale ) {
     return Future.value(mapLocales[locale.toString()]);
   }
 
-  static const Map<String, dynamic> en = {
-    "nameapp": "Weather",
-    "hourToday": "Today",
-    "week": "Week",
-    "lang": "en",
-    "cities": {"london": "London", "bishkek": "Bishkek", "dubai": "Dubai"},
-    "weekMap": {
-      "monday": "Monday",
-      "tuesday": "Tuesday",
-      "wednesday": "Wednesday",
-      "thursday": "Thursday",
-      "friday": "Friday",
-      "saturday": "Saturday",
-      "sunday": "Sunday"
-    }
-  };
-  static const Map<String, dynamic> ky = {
-    "nameapp": "Аба ырайы",
-    "hourToday": "Бугун",
-    "week": "Аптанын күндөрү",
-    "lang": "ky",
-    "cities": {"london": "Лондон", "bishkek": "Бишкек", "dubai": "Дубай"},
-    "weekMap": {
-      "monday": "Дүйшөмбү",
-      "tuesday": "Шейшемби",
-      "wednesday": "Шаршемби",
-      "thursday": "Бейшемби",
-      "friday": "Жума",
-      "saturday": "Ишемби",
-      "sunday": "Жекшемби"
-    }
-  };
-  static const Map<String, dynamic> ru = {
-    "nameapp": "Погода",
-    "hourToday": "Сегодня",
-    "week": "Неделя",
-    "lang": "ru",
-    "cities": {"london": "Лондон", "bishkek": "Бишкек", "dubai": "Дубай"},
-    "weekMap": {
-      "monday": "Понедельник",
-      "tuesday": "Вторник",
-      "wednesday": "Среда",
-      "thursday": "Четверг",
-      "friday": "Пятница",
-      "saturday": "Суббота",
-      "sunday": "Воскресенье"
-    }
-  };
-  static const Map<String, Map<String, dynamic>> mapLocales = {
-    "en": en,
-    "ky": ky,
-    "ru": ru
-  };
+  static const Map<String,dynamic> en = {
+  "nameapp": "Weather",
+  "hourToday": "Today",
+  "week": "Week",
+  "lang": "en",
+  "cities": {
+    "london": "London",
+    "bishkek": "Bishkek",
+    "dubai": "Dubai"
+  },
+  "errorFetch": "No such city found, you may have mistyped the name",
+  "weekMap": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  }
+};
+static const Map<String,dynamic> ky = {
+  "nameapp": "Аба ырайы",
+  "hourToday": "Бугун",
+  "week": "Аптанын күндөрү",
+  "lang": "ky",
+  "cities": {
+    "london": "Лондон",
+    "bishkek": "Бишкек",
+    "dubai": "Дубай"
+  },
+  "errorFetch": "Андай шаар табылган жок, атын туура эмес жазгандырсыз",
+  "weekMap": {
+    "monday": "Дүйшөмбү",
+    "tuesday": "Шейшемби",
+    "wednesday": "Шаршемби",
+    "thursday": "Бейшемби",
+    "friday": "Жума",
+    "saturday": "Ишемби",
+    "sunday": "Жекшемби"
+  }
+};
+static const Map<String,dynamic> ru = {
+  "nameapp": "Погода",
+  "hourToday": "Сегодня",
+  "week": "Неделя",
+  "lang": "ru",
+  "cities": {
+    "london": "Лондон",
+    "bishkek": "Бишкек",
+    "dubai": "Дубай"
+  },
+  "errorFetch": "Не найден такой город, возможно вы ошиблись в названии",
+  "weekMap": {
+    "monday": "Понедельник",
+    "tuesday": "Вторник",
+    "wednesday": "Среда",
+    "thursday": "Четверг",
+    "friday": "Пятница",
+    "saturday": "Суббота",
+    "sunday": "Воскресенье"
+  }
+};
+static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ky": ky, "ru": ru};
 }
