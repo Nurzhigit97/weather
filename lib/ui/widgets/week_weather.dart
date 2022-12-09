@@ -61,7 +61,7 @@ class WeekWeather extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    SizedBox(
+                    /* SizedBox(
                       width: 110,
                       height: 200,
                       child: ListView.builder(
@@ -81,7 +81,7 @@ class WeekWeather extends StatelessWidget {
                           );
                         },
                       ),
-                    ),
+                    ), */
                     Expanded(
                       child: SizedBox(
                         width: double.infinity,
@@ -94,6 +94,10 @@ class WeekWeather extends StatelessWidget {
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+                                Text(
+                                  '${weatherData['date']}',
+                                  style: const TextStyle(fontSize: 15),
+                                ),
                                 Image.network(
                                   'https:${weatherData['day']['condition']['icon']}',
                                   fit: BoxFit.cover,
