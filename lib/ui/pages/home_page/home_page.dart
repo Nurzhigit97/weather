@@ -4,6 +4,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:weather_api/blocs/internet_cubit.dart';
+import 'package:weather_api/resources/internet.dart';
 import 'package:weather_api/resources/local_notificatioin/simple_notification.dart';
 import 'package:weather_api/ui/widgets/choose_lang.dart';
 import 'package:weather_api/ui/widgets/forecast_card.dart';
@@ -83,6 +85,10 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   SearchView(),
+                  BlocProvider(
+                    create: (context) => InternetCubit()..checkConnection(),
+                    child: Internet(),
+                  ),
                   BlocBuilder<WeatherFetchCubit, WeatherState>(
                     builder: (context, state) {
                       if (state is ErrorWeatherState) {
