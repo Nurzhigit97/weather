@@ -6,8 +6,7 @@ class NotificationApi {
       FlutterLocalNotificationsPlugin();
 
   final AndroidInitializationSettings _androidInitializationSettings =
-      const AndroidInitializationSettings('ic_launcher_foreground');
-
+      const AndroidInitializationSettings('@mipmap/ic_launcher');
   void initializeNotifications() async {
     InitializationSettings initializationSettings =
         InitializationSettings(android: _androidInitializationSettings);

@@ -24,6 +24,8 @@ class _SheduledNotificationState extends State<SheduledNotification> {
   @override
   void initState() {
     notificationApi.initializeNotifications();
+    NotificationApi.sendNotification(
+        'WeatherNur', 'Bishkek: ${widget.temp.floor()}');
     NotificationApi.sheduleNotification(
       'WeatherNur',
       'Weather: ${widget.temp.floor()}}',

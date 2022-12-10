@@ -35,10 +35,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Future refresh() async {
-      await context.read<WeatherFetchCubit>().fetchWeather();
-    }
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -58,57 +54,54 @@ class _HomePageState extends State<HomePage> {
         ),
         body: ListView(
           children: [
-            RefreshIndicator(
-              onRefresh: refresh,
-              child: Column(
-                children: [
-                  SearchView(),
-                  BlocProvider(
-                    create: (context) => InternetCubit()..checkConnection(),
-                    child: Internet(),
-                  ),
-                  BlocBuilder<WeatherFetchCubit, WeatherState>(
-                    builder: (context, state) {
-                      if (state is ErrorWeatherState) {
-                        return Center(
-                          child: Text(
-                            '${state.errMsg}',
-                            style: TextStyle(fontSize: 20, color: Colors.red),
-                          ),
-                        );
-                      }
-                      if (state is LoadedWeatherState) {
-                        return Container(
-                          width: double.infinity,
-                          height: 500,
-                          child: ListView(
-                            children: [
-                              SheduledNotification(
-                                temp: state.weather.temp,
-                                cityName: state.weather.city,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 20, right: 20),
-                                child: Column(
-                                  children: [
-                                    Header(),
-                                    ForecastCard(),
-                                    WeekWeather(),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      }
+            Column(
+              children: [
+                SearchView(),
+                BlocProvider(
+                  create: (context) => InternetCubit()..checkConnection(),
+                  child: Internet(),
+                ),
+                BlocBuilder<WeatherFetchCubit, WeatherState>(
+                  builder: (context, state) {
+                    if (state is ErrorWeatherState) {
                       return Center(
-                        child: CircularProgressIndicator(),
+                        child: Text(
+                          '${state.errMsg}',
+                          style: TextStyle(fontSize: 20, color: Colors.red),
+                        ),
                       );
-                    },
-                  ),
-                ],
-              ),
+                    }
+                    if (state is LoadedWeatherState) {
+                      return Container(
+                        width: double.infinity,
+                        height: 500,
+                        child: ListView(
+                          children: [
+                            SheduledNotification(
+                              temp: state.weather.temp,
+                              cityName: state.weather.city,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 20, right: 20),
+                              child: Column(
+                                children: [
+                                  Header(),
+                                  ForecastCard(),
+                                  WeekWeather(),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }
+                    return Center(
+                      child: LinearProgressIndicator(),
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),
