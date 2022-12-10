@@ -8,10 +8,11 @@ import 'package:weather_api/blocs/theme_cubit.dart';
 import 'package:weather_api/blocs/weather_fetch_cubit.dart';
 import 'package:weather_api/data/repository/weather_repository.dart';
 
-Future<void> main() async {
+void main() async {
   //! easy localization
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+
   final _dio = Dio();
   final repository = WeatherRepository(_dio);
 

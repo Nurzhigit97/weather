@@ -39,7 +39,6 @@ dependencies:
   easy_localization: ^3.0.1
   auto_size_text: ^3.0.0
   geolocator: ^9.0.2
-  bloc: ^8.1.0
   equatable: ^2.0.5
   flutter_bloc: ^8.1.1
   hydrated_bloc: ^9.0.0
@@ -52,6 +51,8 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   connectivity_plus: ^3.0.2
   shared_preferences: ^2.0.15
+  timezone: ^0.9.0
+  rive: ^0.9.1
 
 dev_dependencies:
   flutter_test:
@@ -88,6 +89,7 @@ flutter:
     - assets/snow.png
     - assets/sun.png
     - assets/weatherAppIcon.png
+    - assets/weather.riv
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

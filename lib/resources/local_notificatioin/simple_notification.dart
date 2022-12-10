@@ -4,33 +4,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:weather_api/blocs/weather_fetch_cubit.dart';
 import 'package:weather_api/blocs/weather_fetch_state.dart';
-import 'package:weather_api/resources/local_notificatioin/api/notification_api.dart';
+import 'package:weather_api/resources/local_notificatioin/api/local_notification_service.dart';
+import 'package:weather_api/ui/pages/home_page/home.dart';
 
 class SheduledNotification extends StatefulWidget {
-  num temp;
-  String cityName;
+  late String payload;
   SheduledNotification({
-    Key? key,
-    required this.temp,
-    required this.cityName,
-  }) : super(key: key);
-
+    super.key,
+    required this.payload,
+  });
   @override
   _SheduledNotificationState createState() => _SheduledNotificationState();
 }
 
 class _SheduledNotificationState extends State<SheduledNotification> {
-  NotificationApi notificationApi = NotificationApi();
+  late final LocalNotificationService service;
   @override
   void initState() {
-    notificationApi.initializeNotifications();
-    NotificationApi.sendNotification(
-        'WeatherNur', 'Bishkek: ${widget.temp.floor()}');
-    NotificationApi.sheduleNotification(
-      'WeatherNur',
-      'Weather: ${widget.temp.floor()}}',
-    );
     super.initState();
+    service = LocalNotificationService();
+    service.initialize();
+    listenNotification();
   }
 
   @override
@@ -49,20 +43,46 @@ class _SheduledNotificationState extends State<SheduledNotification> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // ElevatedButton.icon(
-                //   onPressed: () => NotificationApi.sendNotification(
-                //       'WeatherNur', 'Bishkek: ${widget.temp.floor()}'),
-                //   label: Text('SimpleNotf'),
-                //   icon: Icon(Icons.schedule),
-                // ),
-                // ElevatedButton.icon(
-                //   onPressed: () => NotificationApi.sheduleNotification(
-                //     'WeatherNur',
-                //     'Bishkek: 18',
-                //   ),
-                //   icon: Icon(Icons.schedule),
-                //   label: Text('SheduleNotf'),
-                // ),
+                ElevatedButton(
+                  onPressed: () async {
+                    await service.showNotification(
+                        id: 0,
+                        title: 'WeatherNur',
+                        body: 'Weather ${state.weather.temp}');
+                  },
+                  child: Text('localNotf'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    service.showScheuledNotification(
+                      id: 0,
+                      title: 'WeatherNur',
+                      body: 'Weather ${state.weather.temp}',
+                      seconds: 5,
+                    );
+                    final snackBar = SnackBar(
+                      content: Text(
+                        'Sheduled every hour!',
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      backgroundColor: Colors.green,
+                    );
+                    ScaffoldMessenger.of(context)
+                      ..removeCurrentSnackBar()
+                      ..showSnackBar(snackBar);
+                  },
+                  child: Text('SheduleNotf'),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    await service.showScheuledNotificationWithPayload(
+                        id: 0,
+                        title: 'WeatherNur',
+                        body: 'Weather ${state.weather.temp}',
+                        payload: 'Payload Notification');
+                  },
+                  child: Text('payloadNotf'),
+                ),
 
                 /* ElevatedButton.icon(
                 label: Text('StopNotf'),
@@ -76,5 +96,20 @@ class _SheduledNotificationState extends State<SheduledNotification> {
         return CircularProgressIndicator();
       },
     );
+  }
+
+  void listenNotification() =>
+      service.onNotificationClick.stream.listen(onNotificationListener);
+
+  void onNotificationListener(String? payload) {
+    if (payload != null && payload.isNotEmpty) {
+      print('payload $payload');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: ((context) => Home()),
+        ),
+      );
+    }
   }
 }
