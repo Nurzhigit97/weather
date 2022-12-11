@@ -87,6 +87,7 @@ class WeekWeather extends StatelessWidget {
                         width: double.infinity,
                         height: 200,
                         child: ListView.builder(
+                          scrollDirection: Axis.vertical,
                           itemCount: state.weather.forecastdata!.length,
                           itemBuilder: (BuildContext ctx, index) {
                             final weatherData =

@@ -51,6 +51,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: ListView(
+          scrollDirection: Axis.vertical,
           children: [
             Column(
               children: [
@@ -70,27 +71,20 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
                     if (state is LoadedWeatherState) {
-                      return Container(
-                        width: double.infinity,
-                        height: 500,
-                        child: ListView(
-                          children: [
-                            SheduledNotification(
-                              payload: 'Hello',
+                      return Column(
+                        children: [
+                          SheduledNotification(),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 20),
+                            child: Column(
+                              children: [
+                                Header(),
+                                ForecastCard(),
+                                WeekWeather(),
+                              ],
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 20, right: 20),
-                              child: Column(
-                                children: [
-                                  Header(),
-                                  ForecastCard(),
-                                  WeekWeather(),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       );
                     }
                     return Center(

@@ -1,92 +1,146 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:rxdart/subjects.dart';
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class LocalNotificationService {
-  LocalNotificationService();
+  static final _notifications = FlutterLocalNotificationsPlugin();
 
-  final _localNotificationService = FlutterLocalNotificationsPlugin();
-//! from rxDart for listen click and open HomePage
-  final BehaviorSubject<String?> onNotificationClick = BehaviorSubject();
+  static Future init({bool scheduled = false}) async {
+    var initAndroidSettings =
+        await AndroidInitializationSettings('mipmap/ic_launcher');
+    var ios = await DarwinInitializationSettings();
+    final settings =
+        InitializationSettings(android: initAndroidSettings, iOS: ios);
+    await _notifications.initialize(settings);
+  }
 
-  Future<void> initialize() async {
-    tz.initializeTimeZones();
-    const AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-    DarwinInitializationSettings iosSettings = DarwinInitializationSettings(
-        requestAlertPermission: true,
-        requestBadgePermission: true,
-        requestCriticalPermission: true,
-        requestSoundPermission: true);
-    final InitializationSettings settings = InitializationSettings(
-        android: androidInitializationSettings, iOS: iosSettings);
+/* //! simple notification
+  static Future showNotification({
+    var id = 0,
+    var title,
+    var body,
+    var payload,
+  }) async =>
+     await _notifications.show(id, title, body, await notificationDetails());
+//! notification after 4 seconds
+  static Future showScheduleNotification({
+    var id = 0,
+    var title,
+    var body,
+    var payload,
+    required DateTime scheduleTime,
+  }) async =>
+      _notifications.zonedSchedule(
+        id,
+        title,
+        body,
+        tz.TZDateTime.from(scheduleTime, tz.local),
+        await notificationDetails(),
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        androidAllowWhileIdle: true,
+      );
+*/
 
-    await _localNotificationService.initialize(
-      settings,
-      // onDidReceiveNotificationResponse: onSelectNotification, //! dont work payload
+  static Future showScheduledWeek() async => _notifications.periodicallyShow(
+      2,
+      'WeatherNur',
+      'Weather 12',
+      RepeatInterval.daily,
+      await notificationDetails());
+
+//! notification every day at 09:36 hour
+  static Future showScheduleDailyNotification({
+    var id = 2,
+    var title,
+    var body,
+    var payload,
+  }) async =>
+      _notifications.zonedSchedule(
+        id,
+        title,
+        body,
+        _scheduledDaily(
+          Time(12, 38),
+        ),
+        await notificationDetails(),
+        payload: payload,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        androidAllowWhileIdle: true,
+        matchDateTimeComponents: DateTimeComponents.time,
+      );
+
+//! for get day
+  static tz.TZDateTime _scheduledDaily(Time time) {
+    final now = tz.TZDateTime.now(tz.local); // fix: dont get current hour
+    final scheduledTime = tz.TZDateTime(
+      tz.local,
+      now.year,
+      now.month,
+      now.day,
+      time.hour - 6, //work only for Bishkek
+      time.minute,
+      time.second,
     );
+    print('test now time $now');
+    print('test schedule time $scheduledTime');
+
+    return scheduledTime.isBefore(now)
+        ? scheduledTime.add(
+            Duration(days: 7),
+          )
+        : scheduledTime;
   }
 
-  Future<NotificationDetails> _notificationDetails() async {
-    const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('channelId', 'channelName',
-            channelDescription: 'description',
-            importance: Importance.max,
-            priority: Priority.max,
-            playSound: true);
-    return const NotificationDetails(android: androidNotificationDetails);
-  }
+/* //! notification если хотим выбрать по каким дням должен работат уведомление
+  static Future showScheduleWeeklyNotification({
+    var id = 0,
+    var title,
+    var body,
+    var payload,
+  }) async =>
+      _notifications.zonedSchedule(
+        id,
+        title,
+        body,
+        //! in this days of week will call
+        _scheduledWeekly(Time(11, 11), days: [
+          DateTime.monday,
+          DateTime.tuesday,
+          DateTime.wednesday,
+          DateTime.thursday,
+          DateTime.friday,
+          DateTime.saturday,
+          DateTime.sunday,
+        ]),
+        await notificationDetails(),
+        payload: payload,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        androidAllowWhileIdle: true,
+        matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
+      );
+//! for get week
+  static tz.TZDateTime _scheduledWeekly(Time time, {required List<int> days}) {
+    tz.TZDateTime scheduleDate = _scheduledDaily(time);
 
-  Future<void> showNotification({
-    required int id,
-    required String title,
-    required String body,
-  }) async {
-    final details = await _notificationDetails();
-    await _localNotificationService.show(id, title, body, details);
-  }
+    while (!days.contains(scheduleDate.weekday)) {
+      scheduleDate = scheduleDate.add(Duration(days: 7));
+    }
+    print('test schedule date $scheduleDate');
+    return scheduleDate;
+  } */
 
-  Future<void> showScheuledNotification(
-      {required int id,
-      required String title,
-      required String body,
-      required int seconds}) async {
-    final details = await _notificationDetails();
-    await _localNotificationService.periodicallyShow(
-      id,
-      title,
-      body,
-      RepeatInterval.hourly,
-      details,
-      androidAllowWhileIdle: true,
-    );
+//! settings for sound etc
+  static notificationDetails() async {
+    return const NotificationDetails(
+        android: AndroidNotificationDetails(
+          '2',
+          'flutterEmbedding',
+          // sound: RawResourceAndroidNotificationSound('notification'),
+          importance: Importance.max,
+          playSound: true,
+        ),
+        iOS: DarwinNotificationDetails(sound: 'notification.mp3'));
   }
-
-  Future<void> showScheuledNotificationWithPayload(
-      {required int id,
-      required String title,
-      required String body,
-      required String payload}) async {
-    final details = await _notificationDetails();
-    await _localNotificationService.show(
-      id,
-      title,
-      body,
-      payload: payload,
-      details,
-    );
-  }
-
-  void onDidReceiveLocalNotification(
-      int id, String? title, String? body, String? payload) {
-    print('id $id');
-  }
-
-// //! showNotification with payload dont work
-//   void onSelectNotification(String? payload) {
-//     print('payload $payload');
-//     if (payload != null && payload.isNotEmpty) {
-//       onNotificationClick.add(payload);
-//     }
-//   }
 }
