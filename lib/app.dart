@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_api/blocs/weather/weather_fetch_cubit.dart';
 
 import 'package:weather_api/ui/pages/home_page/home_page.dart';
@@ -13,9 +14,15 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Future refresh() async {
-    //   await context.read<WeatherFetchCubit>().fetchWeather();
-    // }
+    Future<void> getCityNameFromSharedPrefAndFetchWeather() async {
+      String? _cityName;
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      _cityName = prefs.getString("cityName");
+
+      final fetchWeather = context.read<WeatherFetchCubit>();
+      fetchWeather.fetchWeather(_cityName ?? 'Bishkek');
+    }
 
     final themeCubit = context.watch<ThemeCubit>();
     return MaterialApp(
@@ -27,7 +34,9 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'NurWeather',
       theme: themeCubit.state.isToggle! ? darkTheme() : lightTheme(),
-      home: HomePage(),
+      home: RefreshIndicator(
+          onRefresh: getCityNameFromSharedPrefAndFetchWeather,
+          child: HomePage()),
     );
   }
 }

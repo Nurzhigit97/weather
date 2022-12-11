@@ -25,9 +25,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String? _cityName;
+  Future<void> getCityNameFromSharedPrefAndFetchWeather() async {
+    String? _cityName;
 
-  getCityName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _cityName = prefs.getString("cityName");
 
@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    getCityName();
+    getCityNameFromSharedPrefAndFetchWeather();
     super.initState();
   }
 

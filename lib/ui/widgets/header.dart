@@ -54,13 +54,6 @@ class Header extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.heart_broken,
-                          color: Colors.greenAccent,
-                        ),
-                      ),
                       Image(
                         image:
                             NetworkImage('https:${state.weather.currentIcon}'),
