@@ -23,6 +23,7 @@ class Header extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
+                  flex: 2,
                   child: Column(
                     children: [
                       Text(
@@ -33,7 +34,7 @@ class Header extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${state.weather.temp}°',
+                        '${state.weather.current!['feelslike_c'].round()}°',
                         style: const TextStyle(
                           fontSize: 50,
                           fontWeight: FontWeight.bold,
@@ -46,24 +47,25 @@ class Header extends StatelessWidget {
                         style: TextStyle(fontSize: 17),
                         minFontSize: 17,
                       ),
-
-                      const SizedBox(
-                        height: 10,
-                      ),
-
-                      AutoSizeText(
-                        'Max: ${state.weather.forecastday?['maxtemp_c'].toInt()}° Min: ${state.weather.forecastday?['mintemp_c'].toInt()}°',
-                        style: TextStyle(fontSize: 17),
-                        minFontSize: 17,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
                     ],
                   ),
                 ),
                 Expanded(
-                  child: Image(
-                    image: NetworkImage('https:${state.weather.currentIcon}'),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.heart_broken,
+                          color: Colors.greenAccent,
+                        ),
+                      ),
+                      Image(
+                        image:
+                            NetworkImage('https:${state.weather.currentIcon}'),
+                      ),
+                    ],
                   ),
                 ),
               ],

@@ -4,6 +4,7 @@
   "week": "Неделя",
   "lang": "ru",
   "checkInternet": "Нет соедиения с интернетом",
+  "wind_kph": "км/ч",
   "cities": {
     "london": "Лондон",
     "bishkek": "Бишкек",

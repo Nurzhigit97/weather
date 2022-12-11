@@ -4,6 +4,7 @@
   "week": "Аптанын күндөрү",
   "lang": "ky",
   "checkInternet": "Интернет менен байланыш жок",
+  "wind_kph": "км/с",
   "cities": {
     "london": "Лондон",
     "bishkek": "Бишкек",

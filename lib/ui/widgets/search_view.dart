@@ -11,6 +11,7 @@ class SearchView extends StatelessWidget {
     context.locale;
     final weatherCubit = context.read<WeatherFetchCubit>();
     final inputController = TextEditingController();
+
     return TextField(
       controller: inputController,
       onEditingComplete: () {

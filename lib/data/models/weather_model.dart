@@ -13,24 +13,31 @@ class WeatherModel {
   final double wind;
   final List forecast;
   final Map<String, dynamic>? forecastday;
+  final Map<String, dynamic>? current;
+  final Map<String, dynamic>? location;
   final List<dynamic>? forecastdata;
 
-  WeatherModel(
-      {this.city = '',
-      this.date = '',
-      this.forecast = const [],
-      this.forecastday,
-      this.forecastdata = const [],
-      this.humidity = 0,
-      this.state = '',
-      this.temp = 0,
-      this.text = '',
-      this.uvIndex = 0,
-      this.currentIcon = '',
-      this.wind = 0});
+  WeatherModel({
+    this.city = '',
+    this.date = '',
+    this.forecast = const [],
+    this.forecastday,
+    this.forecastdata = const [],
+    this.humidity = 0,
+    this.state = '',
+    this.temp = 0,
+    this.text = '',
+    this.uvIndex = 0,
+    this.currentIcon = '',
+    this.wind = 0,
+    this.location,
+    this.current,
+  });
 
   factory WeatherModel.fromJson(json) => WeatherModel(
         uvIndex: json['current']['uv'],
+        location: json['location'],
+        current: json['current'],
         currentIcon: json['current']['condition']['icon'],
         city: json['location']['name'],
         date: json['location']['localtime'],

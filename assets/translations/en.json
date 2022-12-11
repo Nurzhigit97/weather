@@ -4,6 +4,7 @@
   "week": "Week",
   "lang": "en",
   "checkInternet": "No internet connection",
+  "wind_kph": "kp/h",
   "cities": {
     "london": "London",
     "bishkek": "Bishkek",

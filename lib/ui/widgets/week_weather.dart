@@ -103,20 +103,23 @@ class WeekWeather extends StatelessWidget {
                                   'https:${weatherData['day']['condition']['icon']}',
                                   fit: BoxFit.cover,
                                 ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      '${weatherData['day']['maxtemp_c']}°',
-                                      style: const TextStyle(fontSize: 15),
-                                    ),
-                                    const SizedBox(
-                                      width: 11,
-                                    ),
-                                    Text(
-                                      ' ${weatherData['day']['mintemp_c']}°',
-                                      style: const TextStyle(fontSize: 15),
-                                    ),
-                                  ],
+                                Container(
+                                  width: 70,
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        '${weatherData['day']['maxtemp_c'].round()}°',
+                                        style: const TextStyle(fontSize: 15),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        ' ${weatherData['day']['mintemp_c'].round()}°',
+                                        style: const TextStyle(fontSize: 15),
+                                      ),
+                                    ],
+                                  ),
                                 )
                               ],
                             );

@@ -20,6 +20,7 @@ class CodegenLoader extends AssetLoader{
   "week": "Week",
   "lang": "en",
   "checkInternet": "No internet connection",
+  "wind_kph": "kp/h",
   "cities": {
     "london": "London",
     "bishkek": "Bishkek",
@@ -42,6 +43,7 @@ static const Map<String,dynamic> ky = {
   "week": "Аптанын күндөрү",
   "lang": "ky",
   "checkInternet": "Интернет менен байланыш жок",
+  "wind_kph": "км/с",
   "cities": {
     "london": "Лондон",
     "bishkek": "Бишкек",
@@ -64,6 +66,7 @@ static const Map<String,dynamic> ru = {
   "week": "Неделя",
   "lang": "ru",
   "checkInternet": "Нет соедиения с интернетом",
+  "wind_kph": "км/ч",
   "cities": {
     "london": "Лондон",
     "bishkek": "Бишкек",

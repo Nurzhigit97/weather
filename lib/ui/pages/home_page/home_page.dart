@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           localNotificationView(),
                           Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 20),
+                            padding: const EdgeInsets.only(left: 10, right: 10),
                             child: Column(
                               children: [
                                 Header(),

@@ -6,6 +6,7 @@ abstract class  LocaleKeys {
   static const week = 'week';
   static const lang = 'lang';
   static const checkInternet = 'checkInternet';
+  static const wind_kph = 'wind_kph';
   static const cities_london = 'cities.london';
   static const cities_bishkek = 'cities.bishkek';
   static const cities_dubai = 'cities.dubai';
