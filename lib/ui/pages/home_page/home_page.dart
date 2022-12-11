@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_api/blocs/internet_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather_api/blocs/internet/internet_cubit.dart';
+import 'package:weather_api/blocs/weather/weather_fetch_cubit.dart';
+import 'package:weather_api/blocs/weather/weather_fetch_state.dart';
 import 'package:weather_api/resources/internet.dart';
 import 'package:weather_api/resources/local_notificatioin/local_notification_view.dart';
 import 'package:weather_api/ui/widgets/choose_lang.dart';
@@ -11,8 +14,6 @@ import 'package:weather_api/ui/widgets/week_weather.dart';
 import 'package:weather_api/ui/widgets/theme_toggle_view.dart';
 import 'package:weather_api/ui/widgets/getbyloc_view.dart';
 import 'package:weather_api/ui/widgets/search_view.dart';
-import 'package:weather_api/blocs/weather_fetch_cubit.dart';
-import 'package:weather_api/blocs/weather_fetch_state.dart';
 import 'package:weather_api/resources/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -24,10 +25,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String? _cityName;
+
+  getCityName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _cityName = prefs.getString("cityName");
+
+    final fetchWeather = context.read<WeatherFetchCubit>();
+    fetchWeather.fetchWeather(_cityName ?? 'Bishkek');
+  }
+
   @override
   void initState() {
-    final fetchWeather = context.read<WeatherFetchCubit>();
-    fetchWeather.fetchWeather();
+    getCityName();
     super.initState();
   }
 

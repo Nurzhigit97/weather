@@ -1,17 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:weather_api/blocs/selected_city_cubit.dart';
-import 'package:weather_api/blocs/weather_fetch_state.dart';
+import 'package:weather_api/blocs/weather/weather_fetch_state.dart';
 import 'package:weather_api/data/repository/weather_repository.dart';
 
 class WeatherFetchCubit extends Cubit<WeatherState> {
   final WeatherRepository _repository;
   WeatherFetchCubit(this._repository) : super(InitWeatherState());
 
-  Future<void> fetchWeather() async {
+  Future<void> fetchWeather(String cityName) async {
     try {
       emit(LoadingWeatherState());
-      final response = await _repository.fetchWeather();
+      final response = await _repository.fetchWeather(cityName);
       emit(LoadedWeatherState(response));
     } on DioError catch (err) {
       emit(ErrorWeatherState(err.message.toString()));

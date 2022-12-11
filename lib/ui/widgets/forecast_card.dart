@@ -2,8 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_api/blocs/weather_fetch_cubit.dart';
-import 'package:weather_api/blocs/weather_fetch_state.dart';
+import 'package:weather_api/blocs/weather/weather_fetch_cubit.dart';
+import 'package:weather_api/blocs/weather/weather_fetch_state.dart';
 
 import '../../generated/locale_keys.g.dart';
 

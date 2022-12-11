@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_api/blocs/selected_city_cubit.dart';
-import 'package:weather_api/blocs/weather_fetch_cubit.dart';
+import 'package:weather_api/blocs/weather/weather_fetch_cubit.dart';
 
 class SelectCityView extends StatelessWidget {
   const SelectCityView({super.key});

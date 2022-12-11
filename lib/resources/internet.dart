@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_api/blocs/internet_cubit.dart';
+import 'package:weather_api/blocs/internet/internet_cubit.dart';
 
 class Internet extends StatelessWidget {
   const Internet({Key? key}) : super(key: key);

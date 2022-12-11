@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_api/blocs/weather_fetch_cubit.dart';
+import 'package:weather_api/blocs/weather/weather_fetch_cubit.dart';
 
 import 'package:weather_api/ui/pages/home_page/home_page.dart';
 import 'package:weather_api/blocs/theme_cubit.dart';
@@ -13,9 +13,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future refresh() async {
-      await context.read<WeatherFetchCubit>().fetchWeather();
-    }
+    // Future refresh() async {
+    //   await context.read<WeatherFetchCubit>().fetchWeather();
+    // }
 
     final themeCubit = context.watch<ThemeCubit>();
     return MaterialApp(
@@ -27,7 +27,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'NurWeather',
       theme: themeCubit.state.isToggle! ? darkTheme() : lightTheme(),
-      home: RefreshIndicator(onRefresh: refresh, child: HomePage()),
+      home: HomePage(),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_api/blocs/weather_fetch_cubit.dart';
-import 'package:weather_api/blocs/weather_fetch_state.dart';
+import 'package:weather_api/blocs/weather/weather_fetch_cubit.dart';
+import 'package:weather_api/blocs/weather/weather_fetch_state.dart';
 import 'package:weather_api/resources/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 

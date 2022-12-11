@@ -5,13 +5,14 @@ import 'package:weather_api/data/models/weather_model.dart';
 
 class WeatherRepository {
   Dio _dio;
+
   WeatherRepository(this._dio);
 
-  Future<WeatherModel> fetchWeather() async {
+  Future<WeatherModel> fetchWeather(String? _cityName) async {
     try {
       Map<String, dynamic> params = {
         'key': "f413fe52174c434294f134955220812",
-        'q': 'Bishkek',
+        'q': _cityName,
         "lang": tr('lang'),
         "days": 7,
       };
@@ -20,7 +21,7 @@ class WeatherRepository {
           queryParameters: params);
       final json = response.data;
       return WeatherModel.fromJson(json);
-    } catch (err) {
+    } catch (_) {
       return Future.error(tr('errorFetch'));
     }
   }
@@ -38,7 +39,7 @@ class WeatherRepository {
           queryParameters: params);
       final json = response.data;
       return WeatherModel.fromJson(json);
-    } catch (err) {
+    } catch (_) {
       return Future.error(tr('errorFetch'));
     }
   }
@@ -55,7 +56,7 @@ class WeatherRepository {
           'http://api.weatherapi.com/v1/forecast.json',
           queryParameters: params);
       return WeatherModel.fromJson(response.data);
-    } catch (err) {
+    } catch (_) {
       return Future.error(tr('errorFetch'));
     }
   }

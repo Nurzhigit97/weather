@@ -1,7 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_api/blocs/weather_fetch_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather_api/blocs/weather/weather_fetch_cubit.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({Key? key}) : super(key: key);
@@ -14,10 +15,15 @@ class SearchView extends StatelessWidget {
 
     return TextField(
       controller: inputController,
-      onEditingComplete: () {
-        if (inputController.text.isEmpty) return;
+      onEditingComplete: () async {
+        final text = inputController.text;
+        if (text.isEmpty) return;
+        //! for save in cash and get from fetchweather
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('cityName', text);
+
         weatherCubit.searchWeatherByCity(
-          inputController.text.toLowerCase(),
+          text,
         );
 
         inputController.text = '';
