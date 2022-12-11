@@ -4,15 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:weather_api/blocs/weather_fetch_cubit.dart';
 import 'package:weather_api/blocs/weather_fetch_state.dart';
-import 'package:weather_api/resources/local_notificatioin/api/local_notification_service.dart';
+import 'package:weather_api/resources/local_notificatioin/local_notification_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
-class SheduledNotification extends StatefulWidget {
+class localNotificationView extends StatefulWidget {
   @override
-  _SheduledNotificationState createState() => _SheduledNotificationState();
+  _localNotificationViewState createState() => _localNotificationViewState();
 }
 
-class _SheduledNotificationState extends State<SheduledNotification> {
+class _localNotificationViewState extends State<localNotificationView> {
   @override
   void initState() {
     super.initState();

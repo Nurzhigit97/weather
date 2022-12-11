@@ -61,6 +61,7 @@ class WeekWeather extends StatelessWidget {
                 ),
                 Row(
                   children: [
+                    //! for week
                     /* SizedBox(
                       width: 110,
                       height: 200,
@@ -87,7 +88,6 @@ class WeekWeather extends StatelessWidget {
                         width: double.infinity,
                         height: 200,
                         child: ListView.builder(
-                          scrollDirection: Axis.vertical,
                           itemCount: state.weather.forecastdata!.length,
                           itemBuilder: (BuildContext ctx, index) {
                             final weatherData =
