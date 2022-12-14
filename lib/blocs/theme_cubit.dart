@@ -1,4 +1,4 @@
-import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_api/blocs/setting_state.dart';
 
 //! Cubit будет получать свойства из SettingState

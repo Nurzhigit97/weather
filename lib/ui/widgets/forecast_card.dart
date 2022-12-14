@@ -49,7 +49,7 @@ class ForecastCard extends StatelessWidget {
                                 width: 5,
                               ),
                               AutoSizeText(
-                                  '${state.weather.current!['wind_dir']} ${state.weather.current!['wind_kph']}${LocaleKeys.wind_kph.tr()}'),
+                                  ' ${state.weather.current!['wind_kph']}${LocaleKeys.wind_kph.tr()}'),
                             ],
                           ),
                           VerticalDivider(
