@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_api/blocs/internet/internet_cubit.dart';
 import 'package:weather_api/blocs/weather/weather_fetch_cubit.dart';
 import 'package:weather_api/blocs/weather/weather_fetch_state.dart';
@@ -20,7 +19,7 @@ import 'package:weather_api/resources/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();

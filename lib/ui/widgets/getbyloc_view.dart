@@ -4,7 +4,7 @@ import 'package:weather_api/blocs/weather/weather_fetch_cubit.dart';
 import 'package:weather_api/resources/location.dart';
 
 class GetByLocationView extends StatelessWidget {
-  GetByLocationView({Key? key}) : super(key: key);
+  const GetByLocationView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

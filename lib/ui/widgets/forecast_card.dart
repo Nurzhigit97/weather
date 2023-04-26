@@ -7,7 +7,7 @@ import '../../generated/locale_keys.g.dart';
 
 class ForecastCard extends StatelessWidget {
   final LoadedWeatherState fetchData;
-  ForecastCard({
+  const ForecastCard({
     required this.fetchData,
     super.key,
   });

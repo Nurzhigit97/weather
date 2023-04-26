@@ -9,7 +9,7 @@ import 'package:weather_api/blocs/theme_cubit.dart';
 import 'package:weather_api/ui/widgets/toggle_dark_light_theme.dart';
 
 class App extends StatelessWidget {
-  App({super.key});
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,9 @@ class App extends StatelessWidget {
       //! easyLocalization
       debugShowCheckedModeBanner: false,
       title: 'NurWeather',
-      theme: themeCubit.state.isToggle! ? darkTheme() : lightTheme(),
+      theme: themeCubit.state.isToggle!
+          ? ThemeDarkLight.darkTheme()
+          : ThemeDarkLight.lightTheme(),
       home: RefreshIndicator(
         onRefresh: () =>
             SharedPref.getCityNameFromSharedPrefAndFetchWeather(context),

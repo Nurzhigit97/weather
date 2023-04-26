@@ -7,7 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class WeekWeather extends StatelessWidget {
   final LoadedWeatherState fetchData;
-  WeekWeather({
+  const WeekWeather({
     required this.fetchData,
     super.key,
   });
