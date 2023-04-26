@@ -10,7 +10,7 @@ class Internet extends StatelessWidget {
     return BlocConsumer<InternetCubit, InternetState>(
       listener: (context, state) {
         if (state is NotConnectedState) {
-          Text(state.message);
+          ErrorWidget(state.message);
         }
       },
       builder: (context, state) {

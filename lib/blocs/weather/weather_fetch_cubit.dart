@@ -11,7 +11,8 @@ class WeatherFetchCubit extends Cubit<WeatherState> {
   Future<void> fetchWeather(String cityName) async {
     try {
       emit(LoadingWeatherState());
-      final response = await _repository.fetchWeather(cityName);
+      final response =
+          await _repository.fetchWeather(cityName == '' ? cityName : 'bishkek');
       emit(LoadedWeatherState(response));
     } on DioError catch (err) {
       emit(ErrorWeatherState(err.message.toString()));

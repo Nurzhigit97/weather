@@ -4,11 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_api/blocs/internet/internet_cubit.dart';
 import 'package:weather_api/blocs/weather/weather_fetch_cubit.dart';
 import 'package:weather_api/blocs/weather/weather_fetch_state.dart';
+import 'package:weather_api/data/local_data/shared_pref.dart';
 import 'package:weather_api/resources/internet.dart';
 import 'package:weather_api/resources/local_notificatioin/local_notification_view.dart';
 import 'package:weather_api/ui/widgets/choose_lang.dart';
 import 'package:weather_api/ui/widgets/forecast_card.dart';
 import 'package:weather_api/ui/widgets/header.dart';
+import 'package:weather_api/ui/widgets/progress_indicator_widget.dart';
 import 'package:weather_api/ui/widgets/select_city_view.dart';
 import 'package:weather_api/ui/widgets/week_weather.dart';
 import 'package:weather_api/ui/widgets/theme_toggle_view.dart';
@@ -25,19 +27,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<void> getCityNameFromSharedPrefAndFetchWeather() async {
-    String? _cityName;
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _cityName = prefs.getString("cityName");
-
-    final fetchWeather = context.read<WeatherFetchCubit>();
-    fetchWeather.fetchWeather(_cityName ?? 'Bishkek');
-  }
-
   @override
   void initState() {
-    getCityNameFromSharedPrefAndFetchWeather();
+    SharedPref.getCityNameFromSharedPrefAndFetchWeather(context);
     super.initState();
   }
 
@@ -73,12 +65,7 @@ class _HomePageState extends State<HomePage> {
                 BlocBuilder<WeatherFetchCubit, WeatherState>(
                   builder: (context, state) {
                     if (state is ErrorWeatherState) {
-                      return Center(
-                        child: Text(
-                          '${state.errMsg}',
-                          style: TextStyle(fontSize: 20, color: Colors.red),
-                        ),
-                      );
+                      return ErrorWidget(state.errMsg);
                     }
                     if (state is LoadedWeatherState) {
                       return Column(
@@ -88,18 +75,22 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: Column(
                               children: [
-                                Header(),
-                                ForecastCard(),
-                                WeekWeather(),
+                                Header(
+                                  fetchData: state,
+                                ),
+                                ForecastCard(
+                                  fetchData: state,
+                                ),
+                                WeekWeather(
+                                  fetchData: state,
+                                ),
                               ],
                             ),
                           )
                         ],
                       );
                     }
-                    return Center(
-                      child: LinearProgressIndicator(),
-                    );
+                    return ProgressIndicatorWidget();
                   },
                 ),
               ],

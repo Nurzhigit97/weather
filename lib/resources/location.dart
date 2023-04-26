@@ -1,7 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 
 class Location {
-  String locationMsg = "Current Loc";
+  String locationMsg = "Current Location";
   String? lat;
   String? long;
 

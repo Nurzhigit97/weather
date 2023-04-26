@@ -6,10 +6,11 @@ import 'package:weather_api/resources/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class WeekWeather extends StatelessWidget {
-  const WeekWeather({
-    Key? key,
-  }) : super(key: key);
-
+  final LoadedWeatherState fetchData;
+  WeekWeather({
+    required this.fetchData,
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     final weekList = <String>[
@@ -18,51 +19,43 @@ class WeekWeather extends StatelessWidget {
       LocaleKeys.weekMap_wednesday.tr(),
     ];
 
-    return BlocBuilder<WeatherFetchCubit, WeatherState>(
-      builder: (context, state) {
-        if (state is ErrorWeatherState) {
-          return Center(
-            child: Text(state.errMsg),
-          );
-        }
-        if (state is LoadedWeatherState) {
-          return Container(
-            margin: const EdgeInsets.only(top: 10),
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(50, 0, 16, 38),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      LocaleKeys.week.tr(),
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    Row(
-                      children: const [
-                        Text(
-                          'Max',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          'Min',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    //! for week
-                    /* SizedBox(
+    return Container(
+      margin: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(50, 0, 16, 38),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                LocaleKeys.week.tr(),
+                style: TextStyle(fontSize: 20),
+              ),
+              Row(
+                children: const [
+                  Text(
+                    'Max',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    'Min',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              //! for week
+              /* SizedBox(
                       width: 110,
                       height: 200,
                       child: ListView.builder(
@@ -83,58 +76,54 @@ class WeekWeather extends StatelessWidget {
                         },
                       ),
                     ), */
-                    Expanded(
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 200,
-                        child: ListView.builder(
-                          itemCount: state.weather.forecastdata!.length,
-                          itemBuilder: (BuildContext ctx, index) {
-                            final weatherData =
-                                state.weather.forecastdata![index];
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Expanded(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: ListView.builder(
+                    itemCount: fetchData.weather.forecastdata!.length,
+                    itemBuilder: (BuildContext ctx, index) {
+                      final weatherData =
+                          fetchData.weather.forecastdata![index];
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${weatherData['date']}',
+                            style: const TextStyle(fontSize: 15),
+                          ),
+                          Image.network(
+                            'https:${weatherData['day']['condition']['icon']}',
+                            fit: BoxFit.cover,
+                          ),
+                          Container(
+                            width: 70,
+                            child: Row(
                               children: [
                                 Text(
-                                  '${weatherData['date']}',
+                                  '${weatherData['day']['maxtemp_c'].round()}°',
                                   style: const TextStyle(fontSize: 15),
                                 ),
-                                Image.network(
-                                  'https:${weatherData['day']['condition']['icon']}',
-                                  fit: BoxFit.cover,
+                                const SizedBox(
+                                  width: 20,
                                 ),
-                                Container(
-                                  width: 70,
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        '${weatherData['day']['maxtemp_c'].round()}°',
-                                        style: const TextStyle(fontSize: 15),
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      Text(
-                                        ' ${weatherData['day']['mintemp_c'].round()}°',
-                                        style: const TextStyle(fontSize: 15),
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                Text(
+                                  ' ${weatherData['day']['mintemp_c'].round()}°',
+                                  style: const TextStyle(fontSize: 15),
+                                ),
                               ],
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                  ),
                 ),
-              ],
-            ),
-          );
-        }
-        return SizedBox.shrink();
-      },
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
